@@ -22,6 +22,9 @@
 		}
 		echo '</nav>';
 	}
+	function genFooter(){
+		echo '<footer>©2022 | Riedler &lt;<a href="mailto:admin@riedler.wien">admin@riedler.wien</a>&gt; | <a href="https://github.com/RiedleroD/riedler.wien">Contribute</a></footer>';
+	}
 	#HeBi → Heterogenous & Bilateral
 	#meaning it's two-sided with different content in each side.
 	#in this case it's an icon left and some text right

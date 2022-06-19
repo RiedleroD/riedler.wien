@@ -51,6 +51,9 @@ body{
 	--gry:#BCBCBC;
 	--gry_d:#888;
 	--gry_dd:#595959;
+	/*link colors*/
+	--lnk_h:#6AC;
+	--lnk:#418BA4;
 	color:var(--acc);
 	font-family:Tahoma, Arial, sans-serif;
 	background:linear-gradient(50deg,var(--acc) 50%, var(--gry) 50%);
@@ -118,6 +121,12 @@ fieldset>legend{
 legend>:is(h2,h3,h4){
 	margin-top:0.25em;
 }
+a{
+	color:var(--lnk);
+}
+a:hover{
+	color:var(--lnk_h);
+}
 /* navbar */
 #main_nav{
 	display:flex;
@@ -150,6 +159,18 @@ legend>:is(h2,h3,h4){
 #main_nav>#logo{
 	height:2em;
 	margin-right:auto;
+}
+/* footer */
+footer{
+	position:fixed;
+	bottom:0;
+	left:0;
+	background-color:var(--acc_d);
+	color:var(--acc_h);
+	padding:0.15em 0.25em;
+	border-radius:0 0.25em 0 0;
+	--lnk:var(--acc_h);
+	--lnk_h:var(--acc_hh)
 }
 /* buttons */
 .btn{
