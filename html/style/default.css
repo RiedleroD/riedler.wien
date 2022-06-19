@@ -1,0 +1,200 @@
+/*width of the content container and skew radius*/
+@media(min-aspect-ratio:9/5){
+	body{
+		--content-width:calc(100vw - 100vh);
+		--skewr:45deg;
+	}
+}
+@media(max-aspect-ratio:9/5){
+	body{
+		--content-width:calc(100vw - 50vh);
+		--skewr:22.5deg;
+	}
+}
+@media(max-aspect-ratio:1/1){
+	body{
+		--content-width:calc(100vw - 25vh);
+		--skewr:11.25deg;
+	}
+}
+@media(max-aspect-ratio:2/3){
+	body{
+		--content-width:90vw;
+		--skewr:0deg;
+	}
+}
+@keyframes load-in{
+	0%{width:0%}
+	100%{width:var(--content-width)}
+}
+/* body */
+body{
+	/*	color legend:
+		
+		--colorname_modifier
+		the modifier can be hh, h, not present, d or dd
+		h is hell (german for light)
+		d is dark
+		double them up and it's even more light / dark
+		
+		in widgets, h is hover and f is focused. there, color names are usually
+		txt for text, brd for border and bgc for background color
+	 */
+	/*accent colors*/
+	--acc_hh:#F6D3AD;
+	--acc_h:#D3B089;
+	--acc:#AE895F;
+	--acc_d:#6F5230;
+	--acc_dd:#493621;
+	/*grey colors*/
+	--gry_h:#E0E0E0;
+	--gry:#BCBCBC;
+	--gry_d:#888;
+	--gry_dd:#595959;
+	color:var(--acc);
+	font-family:Tahoma, Arial, sans-serif;
+	background:linear-gradient(50deg,var(--acc) 50%, var(--gry) 50%);
+	background-size:100vw 100vh;
+	padding:0.5em;
+	margin:0;
+}
+/* slanted stuff container */
+.slant{
+	position:fixed;
+	top:2em;
+	left:50%;
+	display:flex;
+	flex-direction:column;
+	width:var(--content-width);
+	transform:translateX(-50%) skew(var(--skewr));
+	background-color:#000;
+	height:calc(100% - 2em);
+	overflow-y:auto;
+	overflow-x:clip;
+}
+.slant :is(h1,h2,h3,h4,a){
+	transform:skew(calc(-1 * var(--skewr)));
+}
+.slant>fieldset{
+	border-left:none;
+	padding-left:1.5em;
+	padding-right:1.5em;
+}
+/* overlay */
+#overlay{
+	position:fixed;
+	top:2em;
+	left:50%;
+	display:flex;
+	flex-direction:column;
+	transform:translateX(-50%) skew(var(--skewr));
+	height:calc(100% - 2em);
+	pointer-events:none;
+	border-left:solid 50vw var(--acc);
+	border-right:solid 50vw var(--gry);
+	animation:load-in 0.5s normal forwards cubic-bezier(.76,.07,0,1);
+	animation-iteration-count:1;
+}
+/* text stuff */
+h1{
+	text-align:center;
+	font-variant-caps:small-caps;
+}
+h1,h2,h3,h4{
+	color:var(--acc_h);
+}
+fieldset{
+	border-color:var(--acc);
+	border-style:groove;
+	border-width:2px;
+	border-right:none;
+	border-bottom:none;
+	margin:2px 0;
+}
+fieldset>legend{
+	float:left;
+	width:100%;
+}
+legend>:is(h2,h3,h4){
+	margin-top:0.25em;
+}
+/* navbar */
+#main_nav{
+	display:flex;
+	position:sticky;
+	background:
+		linear-gradient(to right,var(--gry) 2em,var(--gry_d) 50%) padding-box,
+		linear-gradient(to right,var(--acc_d) calc(2em + 1px),var(--gry_d) 2em,var(--gry) 50%) border-box;
+	border-radius:0 0 0.25em 0.25em;
+	overflow:clip;
+	width:calc(100% + 1em - 2px);
+	margin:-0.5em -0.5em 0.5em -0.5em;
+	border:solid 1px #0000;
+	border-top:none;
+	z-index:1;
+}
+#main_nav>.btn{
+	--txt:var(--gry_h);
+	--txt_h:var(--gry_dd);
+	--brd:var(--gry);
+	--brd_h:var(--gry);
+	--bgc:var(--gry_d);
+	--bgc_h:var(--gry);
+	border-radius:0;
+	margin:0;
+	border-left:solid 1px var(--brd);
+}
+#main_nav>.btn:hover{
+	z-index:1;
+}
+#main_nav>#logo{
+	height:2em;
+	margin-right:auto;
+}
+/* buttons */
+.btn{
+	display:inline-flex;
+	vertical-align:middle;
+	--txt:var(--acc_h);
+	--txt_h:var(--acc_d);
+	--bgc:var(--acc_d);
+	--bgc_h:var(--acc_h);
+	color:var(--txt);
+	border-color:var(--brd);
+	background-color:var(--bgc);
+	text-decoration:none;
+	padding:0 0.6em;
+	margin:0.1em 0;
+	line-height:2em;
+	border-radius:0.25em;
+	user-select:none;
+}
+a.btn{
+	cursor:pointer;
+}
+a.btn:hover{
+	color:var(--txt_h);
+	border-color:var(--brd_h);
+	background-color:var(--bgc_h);
+}
+/* heterogenous bilateral button */
+.hebi{
+	padding-left:0;
+	overflow:clip;
+}
+.hebi>:is(img,div){
+	display:inline-block;
+	height:2em;
+	align-self:center;
+	margin-right:0.6em;
+	background-color:var(--acc);
+}
+.hebi>div{
+	width:2em;
+}
+a.hebi:hover>div{
+	background-color:var(--acc_hh)
+}
+a.hebi:hover>img{
+	filter:brightness(1.2);
+}
