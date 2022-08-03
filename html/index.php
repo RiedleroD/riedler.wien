@@ -1,11 +1,9 @@
 <?php
 	include("befuncs/snips.php");
-	genUsual("Riedler","","");
+	genUsual("Riedler","@import 'style/home.css'","");
 ?>
 <body>
-	<?php 
-		genNavBar(array("Coding"=>"https://riedler.wien/coding/","Music"=>"https://riedler.wien/music/","Home"=>"./index.php"));
-	?>
+	<?php genNavBar(); ?>
 	<div class="slant">
 		<h1>Riedler</h1>
 		<h3 style="text-align:center">External Links</h3>

@@ -1,0 +1,67 @@
+/*width of the content container and skew radius*/
+@media(min-aspect-ratio:9/5){
+	body{
+		--content-width:calc(100vw - 100vh);
+		--skewr:45deg;
+	}
+}
+@media(max-aspect-ratio:9/5){
+	body{
+		--content-width:calc(100vw - 50vh);
+		--skewr:22.5deg;
+	}
+}
+@media(max-aspect-ratio:1/1){
+	body{
+		--content-width:calc(100vw - 25vh);
+		--skewr:11.25deg;
+	}
+}
+@media(max-aspect-ratio:2/3){
+	body{
+		--content-width:90vw;
+		--skewr:0deg;
+	}
+}
+/* body */
+body{
+	background:linear-gradient(50deg,var(--acc) 50%, var(--gry) 50%);
+	background-size:100vw 100vh;
+}
+/* slanted stuff container */
+.slant{
+	position:fixed;
+	top:2em;
+	left:50%;
+	display:flex;
+	flex-direction:column;
+	width:var(--content-width);
+	transform:translateX(-50%) skew(var(--skewr));
+	background-color:#000;
+	height:calc(100% - 2em);
+	overflow-y:auto;
+	overflow-x:clip;
+}
+.slant :is(h1,h2,h3,h4,a){
+	transform:skew(calc(-1 * var(--skewr)));
+}
+.slant>fieldset{
+	border-left:none;
+	padding-left:1.5em;
+	padding-right:1.5em;
+}
+/* overlay */
+#overlay{
+	position:fixed;
+	top:2em;
+	left:50%;
+	display:flex;
+	flex-direction:column;
+	transform:translateX(-50%) skew(var(--skewr));
+	height:calc(100% - 2em);
+	pointer-events:none;
+	border-left:solid 50vw var(--acc);
+	border-right:solid 50vw var(--gry);
+	animation:load-in 0.5s normal forwards cubic-bezier(.76,.07,0,1);
+	animation-iteration-count:1;
+}

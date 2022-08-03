@@ -15,8 +15,12 @@
 				$custom.
 			'</head>';
 	}
-	function genNavBar($items){
+	function genNavBar(){
 		echo '<nav id="main_nav"><img id="logo" src="https://riedler.wien/favicon.svg"/>';
+		$items = array(
+			"Coding"=>"https://riedler.wien/coding/",
+			"Music"=>"/music",
+			"Home"=>"/");
 		foreach($items as $txt=>$lnk){
 			echo "<a href='$lnk' class='btn'>$txt</a>";
 		}
