@@ -24,6 +24,10 @@
 		$db = _db_connect();
 		return _db_get_pq($db,"SELECT abbr,mylink,name FROM Services ORDER BY prio ASC",[])->fetchAll();
 	}
+	function db_get_song_count(){
+		$db = _db_connect();
+		return (int)(_db_get_pq($db,"SELECT COUNT(id) FROM Songs",[])->fetch()[0]);
+	}
 	function db_get_songs($start,$max){
 		$db = _db_connect();
 		$stmt = $db->prepare('SELECT s.id,s.name,s.type,s.status,r.name,DATE_FORMAT(s.date,"%d.%m.%Y"),NULL FROM Songs as s LEFT JOIN Users as r ON s.requesterid=r.id WHERE s.date<:maxdate ORDER BY date DESC LIMIT :maxresults');

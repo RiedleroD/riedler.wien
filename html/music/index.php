@@ -65,6 +65,11 @@
 			}
 		?>
 	</div>
+	<?php
+		if(db_get_song_count()>10)
+			echo '<div id="loadmore"><a class="btn">Load More</a></div>';
+		//TODO: make loadmore button work
+	?>
 	<?php genFooter(); ?>
 </body>
 </html>

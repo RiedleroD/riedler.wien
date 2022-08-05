@@ -12,6 +12,10 @@ body{
 .btn.play>svg>path{
 	transition:d 0.25s;
 }
+#loadmore{
+	display:flex;
+	justify-content:center;
+}
 /* track list */
 #tracks{
 	display:grid;
