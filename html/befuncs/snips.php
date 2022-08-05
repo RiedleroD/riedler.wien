@@ -57,4 +57,16 @@
 	function rwicon($name){
 		return "https://riedler.wien/sfto/rwicons/$name.svg";
 	}
+	/* for music */
+	function genAudioPlayer($id,$items){
+		#TODO: javascript on/off
+		echo
+		''.
+			"<button class='btn play'>".
+				"<audio preload='none' id='player$id'>";
+			foreach($items as $type=>$mime){
+				echo "<source src='./download/?id=$id&type=$type' type='$mime'/>";
+			}
+		echo '</audio></button>';
+	}
 ?>

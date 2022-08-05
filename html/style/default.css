@@ -112,11 +112,12 @@ footer{
 /* buttons */
 .btn{
 	display:inline-flex;
-	justify-content:center;
+	align-items:center;
+	vertical-align:middle;
 	--txt:var(--acc_h);
-	--txt_h:var(--acc_d);
+	--txt_h:var(--acc_dd);
 	--bgc:var(--acc_d);
-	--bgc_h:var(--acc_h);
+	--bgc_h:var(--acc);
 	border:none;
 	color:var(--txt);
 	background-color:var(--bgc);
@@ -148,6 +149,7 @@ button.btn:hover{
 .hebi>:is(img,div){
 	display:inline-block;
 	height:2em;
+	width:2em;
 	align-self:center;
 	margin-right:0.6em;
 	background-color:var(--acc);
@@ -161,3 +163,68 @@ a.hebi:hover>div{
 a.hebi:hover>img{
 	filter:brightness(1.2);
 }
+/*audioplayer*/
+#masterplayer{
+	display:inline-flex;
+	border-radius:0.25em;
+	padding-right:0.25em;
+	background-color:var(--bg);
+	align-items:center;
+	vertical-align:middle;/*self align in inline*/
+	--fg:var(--acc_h);
+	--bg:var(--acc_d);
+	--fg_h:var(--acc_dd);
+	--bg_h:var(--acc);
+}
+#masterplayer[disabled]{
+	--fg:var(--acc);
+}
+#masterplayer[disabled]>:is(div,svg){
+	cursor:not-allowed;
+}
+#masterplayer>svg{
+	height:2em;
+	width:1em;
+	flex-shrink:0;
+	flex-grow:0;
+	padding:0 0.5em;
+	color:var(--fg);
+	background-color:var(--bg);
+	border-radius:0.25em;
+	cursor:pointer;
+}
+#masterplayer>svg>path{
+	transition:d 0.25s;
+}
+#masterplayer:not([disabled])>svg:hover{
+	color:var(--acc_dd);
+	background-color:var(--acc);
+}
+#masterplayer>span{
+	margin:0 0.5em 0 0em;
+	white-space:pre;
+	flex-shrink:0;
+	flex-grow:0;
+	color:var(--fg);
+	font-family:monospace;
+	font-weight:bold;
+}
+#audioprog,
+#audiovol{
+	border:solid 1px var(--fg);
+	height:0.5em;
+	margin:0 0.25em;
+	padding:0.25em;
+	border-radius:0.25em;
+	cursor:pointer;
+}
+#audioprog>div,
+#audiovol>div{
+	background-color:var(--fg);
+	height:100%;
+	border-radius:0.1em;
+}
+#audioprog{width:8em}
+#audioprog>div{width:0%}
+#audiovol{width:3em}
+#audiovol>div{width:100%}
