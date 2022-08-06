@@ -5,14 +5,6 @@ const playbtn_stop = "M25 80l30 0 0-60-30 0zm30 0 30 0 0-60-30 0z";
 var curplayer = null;
 var state = 0;//0→stopped, 1→paused, 2→playing
 
-var master_player = document.getElementById("masterplayer");
-master_player.data_svg=master_player.getElementsByTagName("path")[0];
-master_player.data_prog=document.getElementById("audioprog");
-master_player.data_vol=document.getElementById("audiovol");
-master_player.data_progtext=master_player.data_prog.nextElementSibling;
-master_player.data_voltext=master_player.data_vol.nextElementSibling;
-master_player.data_curVol=1;
-
 function secs_as_mins(secs){
 	//I HATE JAVASCRIPT
 	//'easy language' MY ASS
@@ -137,27 +129,36 @@ function ondrag_mastervol(event){
 	}
 }
 
-master_player.data_svg.parentElement.onclick=(event) => {
-	if(!master_player.hasAttribute("disabled")){
-		if(state==1){
-			unpausePlayer(curplayer);
-		}else if(state==2){
-			pausePlayer(curplayer);
+window.onload = function(){
+	window.master_player = document.getElementById("masterplayer");
+	master_player.data_svg=master_player.getElementsByTagName("path")[0];
+	master_player.data_prog=document.getElementById("audioprog");
+	master_player.data_vol=document.getElementById("audiovol");
+	master_player.data_progtext=master_player.data_prog.nextElementSibling;
+	master_player.data_voltext=master_player.data_vol.nextElementSibling;
+	master_player.data_curVol=1;
+	master_player.data_svg.parentElement.onclick=(event) => {
+		if(!master_player.hasAttribute("disabled")){
+			if(state==1){
+				unpausePlayer(curplayer);
+			}else if(state==2){
+				pausePlayer(curplayer);
+			}
 		}
 	}
-}
 
-let players = document.getElementsByTagName("audio");
-for(let player of players){
-	let btn=player.parentElement;
-	btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="'+playbtn_play+'" fill="currentColor"/></svg>'+btn.innerHTML;
-	btn.data_id=Number(player.id.slice(6));
-	btn.id="playbtn"+btn.data_id;
-	btn.data_player=player;
-	btn.data_svg=btn.getElementsByTagName("path")[0];
-	btn.onclick=onclick_player;
+	let players = document.getElementsByTagName("audio");
+	for(let player of players){
+		let btn=player.parentElement;
+		btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="'+playbtn_play+'" fill="currentColor"/></svg>'+btn.innerHTML;
+		btn.data_id=Number(player.id.slice(6));
+		btn.id="playbtn"+btn.data_id;
+		btn.data_player=player;
+		btn.data_svg=btn.getElementsByTagName("path")[0];
+		btn.onclick=onclick_player;
+	}
+	master_player.data_prog.onclick=onclick_masterprog;
+	master_player.data_prog.onmousemove=ondrag_masterprog;
+	master_player.data_vol.onclick=onclick_mastervol;
+	master_player.data_vol.onmousemove=ondrag_mastervol;
 }
-master_player.data_prog.onclick=onclick_masterprog;
-master_player.data_prog.onmousemove=ondrag_masterprog;
-master_player.data_vol.onclick=onclick_mastervol;
-master_player.data_vol.onmousemove=ondrag_mastervol;
