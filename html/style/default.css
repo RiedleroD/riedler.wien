@@ -166,6 +166,9 @@ a.hebi:hover>img{
 /*audioplayer*/
 #masterplayer{
 	display:inline-flex;
+	position:sticky;
+	top:0.5em;
+	left:0.5em;
 	border-radius:0.25em;
 	padding-right:0.25em;
 	background-color:var(--bg);

@@ -29,19 +29,18 @@
 	<fieldset id="trackfieldset">
 		<legend><h3>Tracks</h3></legend>
 		<span>Placeholder for filter settings</span>
-		<br/>
-		<div id="masterplayer" disabled>
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M25 90 49 74l0-48L25 10zM49 74 85 50l0 0L49 26z" fill="currentColor"/></svg>
-			<div id="audioprog" alt="progress within the song">
-				<div></div>
-			</div>
-			<span>0:00 / 0:00</span>
-			<div id="audiovol" alt="music volume">
-				<div></div>
-			</div>
-			<span>100%</span>
-		</div>
 	</fieldset>
+	<div id="masterplayer" disabled>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M25 90 49 74l0-48L25 10zM49 74 85 50l0 0L49 26z" fill="currentColor"/></svg>
+		<div id="audioprog" alt="progress within the song">
+			<div></div>
+		</div>
+		<span>0:00 / 0:00</span>
+		<div id="audiovol" alt="music volume">
+			<div></div>
+		</div>
+		<span>100%</span>
+	</div>
 	<div id="tracks">
 		<a id="tracks_header">
 			<span>Name</span>
@@ -51,7 +50,7 @@
 			<div></div>
 		</a>
 		<?php
-			foreach(db_get_songs('2100',10) as list($id,$name,$type,$status,$requestername,$date,$files)){
+			foreach(db_get_songs('2100',100) as list($id,$name,$type,$status,$requestername,$date,$files)){
 				echo "<a href='./play?id=$id'>".
 					"<span>$name</span>".
 					"<span>$status</span>".
