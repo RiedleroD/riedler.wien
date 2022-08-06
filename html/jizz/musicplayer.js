@@ -23,8 +23,16 @@ function secs_as_mins(secs){
 	return Math.floor(secs/60)+':'+(''+Math.round(secs%60)).padStart(2,'0');
 }
 
-function setProgbarWidth(bar,perc){
-	bar.children[0].style.backgroundImage="linear-gradient(to right,var(--fg),var(--fg) "+perc+"%,#0000 "+perc+"%)";
+function setProgbarWidth(bar,perc,bufrd){//this got more complicated than I anticipated
+	let bgi = "linear-gradient(to right,var(--acc_h) 0,var(--acc_h) "+perc+"%";
+	let lastperc = perc;
+	if(bufrd!=null){
+		for(let range of bufrd){
+			bgi+=",#0000 "+lastperc+"%,#0000 "+range[0]+"%,var(--acc) "+range[0]+"%,var(--acc) "+range[1]+"%";
+			lastperc=range[1];
+		}
+	}
+	bar.children[0].style.backgroundImage=bgi+",#0000 "+lastperc+"%)";
 }
 function stopPlayer(player){
 	player.data_player.pause();
@@ -33,7 +41,7 @@ function stopPlayer(player){
 	master_player.setAttribute("disabled","");
 	master_player.data_svg.setAttribute("d",playbtn_play);
 	player.data_player.ontimeupdate=null;
-	setProgbarWidth(master_player.data_prog,0);
+	setProgbarWidth(master_player.data_prog,0,null);
 	master_player.data_progtext.textContent="0:00 / 0:00";
 	state=0;
 	curplayer=null;
@@ -70,12 +78,18 @@ function setPlayerPos(peru){
 function setPlayerVol(peru){
 	master_player.data_curVol=peru;
 	curplayer.data_player.volume=peru;
-	setProgbarWidth(master_player.data_vol,peru*100);
+	setProgbarWidth(master_player.data_vol,peru*100,[[0,100]]);
 	master_player.data_voltext.textContent=(Math.round(peru*100)+"%").padStart(4,' ');
 }
 
 function ontimeupdate_player(event){
-	setProgbarWidth(masterplayer.data_prog,100*this.currentTime/this.duration);
+	let bufrd=[];
+	for(let i=0;i<this.buffered.length;i++){
+		if(this.buffered.end(i)>this.currentTime){
+			bufrd.push([100*this.buffered.start(i)/this.duration,100*this.buffered.end(i)/this.duration]);
+		}
+	}
+	setProgbarWidth(masterplayer.data_prog,100*this.currentTime/this.duration,bufrd);
 	master_player.data_progtext.textContent=secs_as_mins(this.currentTime)+" / "+secs_as_mins(this.duration);
 	if((this.currentTime/this.duration)==1){
 		stopPlayer(curplayer);
@@ -143,7 +157,7 @@ for(let player of players){
 	btn.data_svg=btn.getElementsByTagName("path")[0];
 	btn.onclick=onclick_player;
 }
-masterplayer.data_prog.onclick=onclick_masterprog;
-masterplayer.data_prog.onmousemove=ondrag_masterprog;
-masterplayer.data_vol.onclick=onclick_mastervol;
-masterplayer.data_vol.onmousemove=ondrag_mastervol;
+master_player.data_prog.onclick=onclick_masterprog;
+master_player.data_prog.onmousemove=ondrag_masterprog;
+master_player.data_vol.onclick=onclick_mastervol;
+master_player.data_vol.onmousemove=ondrag_mastervol;
