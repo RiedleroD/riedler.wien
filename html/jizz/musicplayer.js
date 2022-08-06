@@ -24,7 +24,7 @@ function secs_as_mins(secs){
 }
 
 function setProgbarWidth(bar,perc){
-	bar.children[0].style.width=perc+"%";
+	bar.children[0].style.backgroundImage="linear-gradient(to right,var(--fg),var(--fg) "+perc+"%,#0000 "+perc+"%)";
 }
 function stopPlayer(player){
 	player.data_player.pause();
@@ -100,25 +100,25 @@ function onclick_player(event){
 }
 function onclick_masterprog(event){
 	if(!master_player.hasAttribute("disabled")){
-		setPlayerPos((event.layerX-this.offsetLeft)/this.offsetWidth)
+		setPlayerPos((event.layerX-this.firstElementChild.offsetLeft)/this.firstElementChild.offsetWidth)
 	}
 }
 function ondrag_masterprog(event){
 	if(!master_player.hasAttribute("disabled")){
 		if(event.buttons & 1){//if primary mouse key is held down
-			setPlayerPos((event.x-this.offsetLeft)/this.offsetWidth);
+			setPlayerPos((event.layerX-this.firstElementChild.offsetLeft)/this.firstElementChild.offsetWidth);
 		}
 	}
 }
 function onclick_mastervol(event){
 	if(!master_player.hasAttribute("disabled")){
-		setPlayerVol((event.layerX-this.offsetLeft)/this.offsetWidth)
+		setPlayerVol((event.layerX-this.firstElementChild.offsetLeft)/this.firstElementChild.offsetWidth)
 	}
 }
 function ondrag_mastervol(event){
 	if(!master_player.hasAttribute("disabled")){
 		if(event.buttons & 1){//if primary mouse key is held down
-			setPlayerVol((event.x-this.offsetLeft)/this.offsetWidth);
+			setPlayerVol((event.layerX-this.firstElementChild.offsetLeft)/this.firstElementChild.offsetWidth);
 		}
 	}
 }

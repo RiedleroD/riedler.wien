@@ -223,11 +223,11 @@ a.hebi:hover>img{
 }
 #audioprog>div,
 #audiovol>div{
-	background-color:var(--fg);
 	height:100%;
+	width:100%;
 	border-radius:0.1em;
 }
 #audioprog{width:8em}
-#audioprog>div{width:0%}
+#audioprog>div{background-image:none}
 #audiovol{width:3em}
-#audiovol>div{width:100%}
+#audiovol>div{background-image:linear-gradient(var(--fg),var(--fg))}
