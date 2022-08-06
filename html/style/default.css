@@ -172,6 +172,7 @@ a.hebi:hover>img{
 	border-radius:0.25em;
 	padding-right:0.25em;
 	background-color:var(--bg);
+	border:solid 1px var(--acc_dd);
 	align-items:center;
 	vertical-align:middle;/*self align in inline*/
 	--fg:var(--acc_h);
