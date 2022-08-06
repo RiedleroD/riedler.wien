@@ -18,7 +18,8 @@
 	}
 	$fn=str_replace(' ','_',
 		str_replace('/','-',
-		strtolower($name))).'.'.$ftype['ext'];
+		str_replace('\'','',
+		strtolower($name)))).'.'.$ftype['ext'];
 	$fp='../../resource/tracks/'.$fn;
 	if(!file_exists($fp)){
 		http_response_code(404);
