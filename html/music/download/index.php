@@ -26,14 +26,5 @@
 		echo "no file named '$fn'";
 		die();
 	}
-	$fsize=filesize($fp);
-	header('Content-Description: File Transfer');
-	header('Content-Type: '.$ftype['mime']);
-	header('Content-Disposition: attachment; filename="'.$fn.'"');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate');
-	header('Pragma: public');
-	header('Content-Length: '.$fsize);
-	flush();
-	readfile($fp);
+	header('Location: '.$fp);
 ?>
