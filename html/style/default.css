@@ -1,7 +1,9 @@
 @keyframes load-in{
-	0%{width:0%}
+	0%{transform:translateX(-50%) skew(0deg)}
+	50%{width:0%;transform:translateX(-50%) skew(var(--skewr))}
 	100%{width:var(--content-width)}
 }
+/*  */
 /* body */
 body{
 	/*	color legend:
@@ -29,6 +31,9 @@ body{
 	/*link colors*/
 	--lnk_h:#6AC;
 	--lnk:#418BA4;
+	/*for loadin/out animation*/
+	--content-width:100vw;
+	--skewr:0deg;
 	color:var(--acc);
 	background-color:var(--acc_dd);
 	font-family:Tahoma, Arial, sans-serif;
@@ -162,6 +167,21 @@ a.hebi:hover>div{
 }
 a.hebi:hover>img{
 	filter:brightness(1.2);
+}
+/* overlay */
+#overlay{
+	position:fixed;
+	top:2em;
+	left:50%;
+	display:flex;
+	flex-direction:column;
+	transform:translateX(-50%) skew(var(--skewr));
+	height:calc(100% - 2em);
+	pointer-events:none;
+	border-left:solid 50vw var(--acc);
+	border-right:solid 50vw var(--gry);
+	animation:load-in 0.5s normal both cubic-bezier(.76,.07,0,1);
+	animation-iteration-count:1;
 }
 /*audioplayer*/
 #masterplayer{

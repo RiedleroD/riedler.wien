@@ -12,6 +12,7 @@
 					'@import "/style/default.css";'.
 					$style.
 				'</style>'.
+				'<script async src="/jizz/default.js"></script>'.
 				$custom.
 			'</head>';
 	}
@@ -27,6 +28,7 @@
 		echo '</nav>';
 	}
 	function genFooter(){
+		echo '<div id="overlay"></div>';
 		echo '<footer>©2022 | Riedler &lt;<a href="mailto:admin@riedler.wien">admin@riedler.wien</a>&gt; | <a href="https://github.com/RiedleroD/riedler.wien">Contribute</a></footer>';
 	}
 	#HeBi → Heterogenous & Bilateral

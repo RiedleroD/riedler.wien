@@ -1,3 +1,10 @@
+@keyframes load-in{
+	0%{width:0%}
+	100%{width:var(--content-width)}
+}
+#overlay{
+	animation-duration:0.33s;/*less time because no skewing*/
+}
 body{
 	padding-bottom:2em;
 }

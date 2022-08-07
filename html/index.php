@@ -77,7 +77,6 @@
 			?>
 		</fieldset>
 	</div>
-	<div id="overlay"></div>
 	<?php genFooter(); ?>
 </body>
 </html>
