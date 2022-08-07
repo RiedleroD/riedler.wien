@@ -1,7 +1,8 @@
 <?php
 	include("../befuncs/snips.php");
 	include("../befuncs/db.php");
-	genUsual("Riedler's Music","@import '../style/music.css'",'<script async src="../jizz/musicplayer.js"></script>');
+	genUsual("Riedler's Music","@import '../style/music.css'",
+			 '<script async src="../jizz/musicplayer.js"></script><script async src="../jizz/musiclist.js"></script>');
 ?>
 <body>
 	<?php genNavBar(); ?>
@@ -50,24 +51,13 @@
 			<div></div>
 		</a>
 		<?php
-			foreach(db_get_songs('2100',100) as list($id,$name,$type,$status,$requestername,$date,$files)){
-				echo "<a href='./play?id=$id'>".
-					"<span>$name</span>".
-					"<span>$status</span>".
-					"<span>$requestername</span>".
-					"<span>$date</span>";
-				if(count($files)>0){
-					echo '</a>';
-					genAudioPlayer($id,$files);
-				}else
-					echo '<span></span></a>';
-			}
+			$data = db_get_songs('2100',10);
+			$lastdate = echo_html_from_songlist($data);
 		?>
 	</div>
 	<?php
 		if(db_get_song_count()>10)
-			echo '<div id="loadmore"><a class="btn">Load More</a></div>';
-		//TODO: make loadmore button work
+			echo "<div id='loadmore' data-lastdate='$lastdate'><a class='btn'>Load More</a></div>";
 	?>
 	<?php genFooter(); ?>
 </body>
