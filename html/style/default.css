@@ -40,6 +40,26 @@ body{
 	padding:0.5em;
 	margin:0;
 }
+/* scrollbar */
+body{/*doesn't work with newest firefox since they introduced those new scrollbars*/
+	scrollbar-width:auto;
+	scrollbar-color:var(--gry_d) var(--gry);
+}
+*::-webkit-scrollbar{
+	width:0.75em;
+	height:0.75em;
+}
+*::-webkit-scrollbar-track-piece{
+	background-color:var(--gry);
+}
+*::-webkit-scrollbar-thumb{
+	background-color:var(--gry_d);
+	border:solid 0.125em var(--gry);
+	border-radius:0.5em;
+}
+::-webkit-scrollbar-thumb:hover{
+	background-color:var(--gry_dd)
+}
 /* text stuff */
 h1{
 	text-align:center;
