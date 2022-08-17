@@ -57,6 +57,9 @@
 		return "https://riedler.wien/sfto/$name";
 	}
 	function rwicon($name){
+		if(strlen($name)>5){
+			throw new Exception("rwicon name length can't be longer than 5 characters. Instead, $name is ".strlen($name));
+		}
 		return "https://riedler.wien/sfto/rwicons/$name.svg";
 	}
 	/* for music */

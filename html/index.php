@@ -10,10 +10,9 @@
 		<fieldset>
 			<legend><h3>Support me!</h3></legend>
 			<?php
-				#TODO: custom icon for liberapay and fiverr (this is ugleh)
-				genHeBiLink(null,"Liberapay","https://liberapay.com/Riedler");
+				genHeBiLink(rwicon("lp"),"Liberapay","https://liberapay.com/Riedler");
 				genHeBiLink(rwicon("pt"),"Patreon","https://patreon.com/RiedlerM");
-				genHeBiLink(null,"Fiverr","https://www.fiverr.com/s2/1e37f97239");
+				genHeBiLink(rwicon("fv"),"Fiverr","https://www.fiverr.com/s2/1e37f97239");
 			?>
 		</fieldset>
 		<fieldset>
@@ -37,7 +36,7 @@
 				genHeBiLink(rwicon("sbzv"),"СберЗвук","https://sber-zvuk.com/artist/157131");
 				genHeBiLink(rwicon("dz"),"Deezer","https://www.deezer.com/en/artist/116666602");
 				genHeBiLink(rwicon("sz"),"Shazam","https://www.shazam.com/gb/artist/211983431");
-				genHeBiLink(rwicon("vimeo"),"Vimeo","https://vimeo.com/user125791194");
+				genHeBiLink(rwicon("vm"),"Vimeo","https://vimeo.com/user125791194");
 				genHeBiLink(rwicon("td"),"Tidal","https://tidal.com/browse/artist/22622017");
 				genHeBiLink(rwicon("ne"),"NetEase","https://music.163.com/#/artist?id=46345905");
 				genHeBiLink(rwicon("qq"),"QQ","https://y.qq.com/n/ryqq/singer/0031Xw4m1zLAUa");
@@ -47,32 +46,32 @@
 		<fieldset>
 			<legend><h3>Coding</h3></legend>
 			<?php
-				genHeBiLink(null,"Github","https://github.com/RiedleroD/");
-				genHeBiLink(null,"GitLab","https://gitlab.com/RiedleroD");
-				genHeBiLink(null,"CodeBerg","https://codeberg.org/Riedler");
+				genHeBiLink(rwicon("gh"),"Github","https://github.com/RiedleroD/");
+				genHeBiLink(rwicon("gl"),"GitLab","https://gitlab.com/RiedleroD");
+				genHeBiLink(rwicon("cb"),"CodeBerg","https://codeberg.org/Riedler");
 				genHeBiLink(rwicon("yt"),"YouTube","https://www.youtube.com/channel/UCZQenB17Kia40e0Blx_xsTQ")
 			?>
 		</fieldset>
 		<fieldset>
 			<legend><h3>Userstyles</h3></legend>
 			<?php
-				genHeBiLink(null,"userstyles.world","https://userstyles.world/user/riedler");
-				genHeBiLink(null,"Userstyles Repository","https://github.com/RiedleroD/userstyles-riedler");
+				genHeBiLink(rwicon("usrw"),"userstyles.world","https://userstyles.world/user/riedler");
+				genHeBiLink(rwicon("gh"),"Userstyles Repository","https://github.com/RiedleroD/userstyles-riedler");
 			?>
 		</fieldset>
 		<fieldset>
 			<legend><h3>Social</h3></legend>
 			<?php
-				genHeBiLink(null,"Mastodon","https://mas.to/@Riedler");
-				genHeBiLink(null,"Telegram Channel","https://t.me/RiedlerM");
-				genHeBiLink(null,"Subreddit","https://www.reddit.com/r/Riedler");
+				genHeBiLink(rwicon("mstdn"),"Mastodon","https://mas.to/@Riedler");
+				genHeBiLink(rwicon("tg"),"Telegram Channel","https://t.me/RiedlerM");
+				genHeBiLink(rwicon("rddt"),"Subreddit","https://www.reddit.com/r/Riedler");
 			?>
 		</fieldset>
 		<fieldset>
 			<legend><h3>Gaming</h3></legend>
 			<?php
-				genHeBiLink(null,"speedrun.com","https://www.speedrun.com/user/Riedler");
-				genHeBiLink(null,"Mega Man Leaderboards","https://megamanleaderboards.net/index.php?page=runner&name=Riedler");
+				genHeBiLink(rwicon("spdrn"),"speedrun.com","https://www.speedrun.com/user/Riedler");
+				genHeBiLink(rwicon("mmlb"),"Mega Man Leaderboards","https://megamanleaderboards.net/index.php?page=runner&name=Riedler");
 				genHeBiLink(rwicon("yt"),"Youtube","https://www.youtube.com/channel/UCCvjTX0Sy29dkMSZ5V8rM5Q")
 			?>
 		</fieldset>
