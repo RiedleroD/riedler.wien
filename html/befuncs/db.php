@@ -1,4 +1,5 @@
 <?php
+	const SELECTSONG = 'SELECT s.id as id,s.name as name,type,status,r.name as requester,DATE_FORMAT(date,"%d.%m.%Y") as fdate,date FROM Songs as s LEFT JOIN Users as r ON s.requesterid=r.id';
 	function _db_connect(){
 		$db = new PDO("mysql:host=localhost;dbname=rwienmusic","riedlerwien");
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,7 +31,7 @@
 	}
 	function db_get_songs($start,$max){
 		$db = _db_connect();
-		$stmt = $db->prepare('SELECT s.id,s.name,s.type,s.status,r.name,DATE_FORMAT(s.date,"%d.%m.%Y"),NULL FROM Songs as s LEFT JOIN Users as r ON s.requesterid=r.id WHERE s.date<:maxdate ORDER BY date DESC LIMIT :maxresults');
+		$stmt = $db->prepare(SELECTSONG.' WHERE s.date<:maxdate ORDER BY date DESC LIMIT :maxresults');
 		$stmt->bindparam(':maxdate',$start,PDO::PARAM_STR);
 		$stmt->bindparam(':maxresults',$max,PDO::PARAM_INT);//whoever made PDO are idiots
 		$stmt->execute();
@@ -38,24 +39,44 @@
 		
 		$stmt = $db->prepare('SELECT ft.id,ft.mime FROM Files as f INNER JOIN Filetypes as ft ON f.filetypeid=ft.id where f.songid=?');
 		for($i=0;$i<count($result);$i++){
-			$stmt->bindparam(1,$result[$i][0],PDO::PARAM_INT);
+			$stmt->bindparam(1,$result[$i]['id'],PDO::PARAM_INT);
 			$stmt->execute();
-			$result[$i][6]=array();
+			$ftypes=array();
 			foreach($stmt->fetchAll() as list($type,$mime)){
-				$result[$i][6][$type]=$mime;
+				$ftypes[$type]=$mime;
 			}
+			$result[$i]['files']=$ftypes;
 		}
 		return $result;
 	}
 	function db_get_song_by_id($id){
 		$db = _db_connect();
 		return _db_get_tpq($db,
-			'SELECT name,type,status,requesterid,DATE_FORMAT(date,"%d.%m.%Y") FROM Songs WHERE id=?',
+			SELECTSONG.' WHERE s.id=?',
 			[$id],[PDO::PARAM_INT])->fetch();
 	}
+	function db_get_previous_song($date){
+		return _db_get_pq(_db_connect(),
+			SELECTSONG.' WHERE date<? ORDER BY date DESC LIMIT 1',
+			[$date])->fetch();
+	}
+	function db_get_next_song($date){
+		return _db_get_pq(_db_connect(),
+			SELECTSONG.' WHERE date>? ORDER BY date ASC LIMIT 1',
+			[$date])->fetch();
+	}
+	function db_get_previous_song_with_type($date,$type){
+		return _db_get_pq(_db_connect(),
+			SELECTSONG.' WHERE date<? AND type=? ORDER BY date DESC LIMIT 1',
+			[$date,$type])->fetch();
+	}
+	function db_get_next_song_with_type($date,$type){
+		return _db_get_pq(_db_connect(),
+			SELECTSONG.' WHERE date>? AND type=? ORDER BY date ASC LIMIT 1',
+			[$date,$type])->fetch();
+	}
 	function db_get_filetype_by_id($id){
-		$db = _db_connect();
-		return _db_get_tpq($db,
+		return _db_get_tpq(_db_connect(),
 			'SELECT name,mime,prio,ext FROM Filetypes WHERE id=?',
 			[$id],[PDO::PARAM_INT])->fetch();
 	}

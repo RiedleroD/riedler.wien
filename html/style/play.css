@@ -1,0 +1,19 @@
+#play_nav{
+	display:flex;
+	width:100%;
+	padding-top:0;
+	flex-direction:row;
+	justify-content:space-between;
+	align-items:start;
+}
+#play_nav>div{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+#play_nav>div:first-child{
+	align-items:start;
+}
+#play_nav>div:last-child{
+	align-items:end;
+}

@@ -8,8 +8,8 @@
 			include("../befuncs/snips.php");
 			$data = db_get_songs($_GET['startdate'],(int)$_GET['max_amount']);
 			if($_GET['ashtml']=='0'){
-				header('Content-Type: application/json');
-				echo_json_from_songlist($data);
+				http_response_code(501);
+				echo 'json output support has been removed temporarily';
 				die();
 			}else if($_GET['ashtml']=='1'){
 				echo_html_from_songlist($data);

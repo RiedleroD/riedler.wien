@@ -71,41 +71,20 @@
 			}
 		echo '</audio></button>';
 	}
-	function echo_json_from_songlist($data){
-		echo '[';
-		$first=true;
-		foreach($data as list($id,$name,$type,$status,$requestername,$date,$files)){
-			if($first) $first=false;
-			else echo ',';
-			if($requestername==NULL)
-				$reqname='null';//TODO: check actual null value in json
-			else
-				$reqname="'$requestername'";
-			echo "[$id,\"$name\",\"$type\",\"$status\",$reqname,\"$date\",{";
-			$first2=true;
-			foreach($files as $type=>$mime){
-				if($first2) $first2=false;
-				else echo ',';
-				echo "\"$type\":\"$mime\"";
-			}
-			echo '}]';
-		}
-		echo ']';
-	}
 	function echo_html_from_songlist($data){
 		$lastdate=null;
-		foreach($data as list($id,$name,$type,$status,$requestername,$date,$files)){
-			echo "<a href='./play?id=$id'>".
-				"<span>$name</span>".
-				"<span>$status</span>".
-				"<span>$requestername</span>".
-				"<span>$date</span>";
-			if(count($files)>0){
+		foreach($data as $song){
+			echo "<a href='./play?id=${song['id']}'>".
+				"<span>${song['name']}</span>".
+				"<span>${song['status']}</span>".
+				"<span>${song['requester']}</span>".
+				"<span>${song['fdate']}</span>";
+			if(count($song['files'])>0){
 				echo '</a>';
-				genAudioPlayer($id,$files);
+				genAudioPlayer($song['id'],$song['files']);
 			}else
 				echo '<span></span></a>';
-			$lastdate = $date;
+			$lastdate = $song['date'];
 		}
 		return $lastdate;
 	}
