@@ -60,10 +60,21 @@
 				}
 			?>
 		</div>
-		<div id="play_files">
-		</div>
-		<div id="play_links">
-		</div>
+		<fieldset id="play_files">
+		</fieldset>
+		<fieldset id="play_links">
+			<legend><h3>Available on other services:</h3></legend>
+			<?php
+				foreach(db_get_links_by_songid($song['id']) as $service){
+					$icon = rwicon($service['abbr']);
+					$lnk = $service['link'];
+					if(!strpos($lnk,'://')){
+						$lnk='https://'.$lnk;
+					}
+					echo "<a href='$lnk' class='btn hebi'><img src='$icon'/>${service['name']}</a>";
+				}
+			?>
+		</fieldset>
 	</div>
 	<!-- TODO: audio player -->
 	<!-- TODO: file formats with play buttons for audio player & download button & file size -->

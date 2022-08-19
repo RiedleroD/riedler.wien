@@ -82,4 +82,11 @@
 			'SELECT name,mime,prio,ext FROM Filetypes WHERE id=?',
 			[$id],[PDO::PARAM_INT])->fetch();
 	}
+	function db_get_links_by_songid($id){
+		return _db_get_tpq(_db_connect(),
+			'SELECT s.name as name,s.abbr,CONCAT(s.songlink,l.link) as link FROM Links as l '.
+			'JOIN Services as s ON l.serviceid=s.id '.
+			'WHERE l.songid=? ORDER BY s.prio',
+			[$id],[PDO::PARAM_INT])->fetchAll();
+	}
 ?>
