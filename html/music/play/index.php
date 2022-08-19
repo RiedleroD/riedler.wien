@@ -91,7 +91,6 @@
 			?>
 		</fieldset>
 	</div>
-	<!-- TODO: fix bug with navbar -->
 	<!-- TODO: style text selections -->
 	<?php genFooter(); ?>
 </body>

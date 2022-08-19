@@ -122,6 +122,7 @@ a:hover{
 #main_nav{
 	display:flex;
 	position:sticky;
+	top:0;
 	background:
 		linear-gradient(to right,var(--gry) 2em,var(--gry_d) 50%) padding-box,
 		linear-gradient(to right,var(--acc_d) calc(2em + 1px),var(--gry_d) 2em,var(--gry) 50%) border-box;
@@ -248,7 +249,7 @@ a.hebi:hover>img{
 #masterplayer{
 	display:inline-flex;
 	position:sticky;
-	top:0.5em;
+	top:2.5em;
 	left:0.5em;
 	border-radius:0.25em;
 	padding-right:0.25em;
