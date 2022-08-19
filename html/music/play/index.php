@@ -55,7 +55,9 @@
 				echo "<span>Release Date</span><span>${song['fdate']}</span>";
 				echo "<span>Type</span><span class='type_${song['type']}'>${song['type']}</span>";
 				echo "<span>Status</span><span>${song['status']}</span>";
-				echo "<div>Placeholder for Comment</div>";
+				if($song['comment']){
+					echo "<div>${song['comment']}</div>";
+				}
 			?>
 		</div>
 		<div id="play_files">

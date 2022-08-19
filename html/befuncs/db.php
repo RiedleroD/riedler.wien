@@ -1,5 +1,7 @@
 <?php
-	const SELECTSONG = 'SELECT s.id as id,s.name as name,type,status,r.name as requester,DATE_FORMAT(date,"%d.%m.%Y") as fdate,date FROM Songs as s LEFT JOIN Users as r ON s.requesterid=r.id';
+	const SELECTSONG = 'SELECT s.id as id,s.name as name,type,status,r.name as requester,DATE_FORMAT(date,"%d.%m.%Y") as fdate,date,c.comment FROM Songs as s '.
+	'LEFT JOIN Users as r ON s.requesterid=r.id '.
+	'LEFT JOIN Comments as c ON c.songid=s.id';
 	function _db_connect(){
 		$db = new PDO("mysql:host=localhost;dbname=rwienmusic","riedlerwien");
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

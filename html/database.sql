@@ -43,6 +43,17 @@ INSERT INTO `Filetypes` VALUES
   (5,'wav','audio/wav',4,'wav');
 
 --
+-- Table structure for table `Comments`
+--
+
+CREATE TABLE `Comments` (
+  `songid` int(11) NOT NULL,
+  `comment` varchar(1023) NOT NULL,
+  PRIMARY KEY (`songid`),
+  CONSTRAINT `Comments_ibfk_1` FOREIGN KEY (`songid`) REFERENCES `Songs` (`id`),
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Table structure for table `Services`
 --
 
