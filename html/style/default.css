@@ -3,7 +3,6 @@
 	50%{width:0%;transform:translateX(-50%) skew(var(--skewr))}
 	100%{width:var(--content-width)}
 }
-/*  */
 /* body */
 body{
 	/*	color legend:
@@ -88,6 +87,11 @@ body{/*doesn't work with newest firefox since they introduced those new scrollba
 }
 ::-webkit-scrollbar-thumb:hover{
 	background-color:var(--gry_dd)
+}
+/* text selections */
+::selection{
+	color:var(--acc_d);
+	background-color:var(--acc_h);
 }
 /* text stuff */
 h1{

@@ -91,7 +91,6 @@
 			?>
 		</fieldset>
 	</div>
-	<!-- TODO: style text selections -->
 	<?php genFooter(); ?>
 </body>
 </html>
