@@ -27,18 +27,13 @@
 					echo '<a class="btn" href="./?id='.$prevsong['id'].'">Previous Song</a>';
 				}
 				if($prevsongwt){
-					echo '<a class="btn" href="./?id='.$prevsongwt['id'].'">Previous '.$prevsongwt['type'].'</a>';
+					echo '<a class="btn type_'.$prevsongwt['type'].'" href="./?id='.$prevsongwt['id'].'">Previous '.$prevsongwt['type'].'</a>';
 				}
 			?>
 		</div>
 		<div>
 			<a class="btn" href="../">Back</a>
-			<h2><?php echo $song['name'] ?></h2>
-			<?php
-				if($song['requester']){
-					echo '<span>Requested by '.$song['requester'].'</span>';
-				}
-			?>
+			<?php echo "<h2 class='type_${song['type']}'>${song['name']}</h2>" ?>
 		</div>
 		<div>
 			<?php
@@ -46,17 +41,33 @@
 					echo '<a class="btn" href="./?id='.$nextsong['id'].'">Next Song</a>';
 				}
 				if($nextsongwt){
-					echo '<a class="btn" href="./?id='.$nextsongwt['id'].'">Next '.$nextsongwt['type'].'</a>';
+					echo '<a class="btn type_'.$nextsongwt['type'].'" href="./?id='.$nextsongwt['id'].'">Next '.$nextsongwt['type'].'</a>';
 				}
 			?>
 		</div>
 	</div>
+	<div id="play_content">
+		<div id="play_info">
+			<?php
+				if($song['requester']){
+					echo "<span>Requester</span><span>${song['requester']}</span>";
+				}
+				echo "<span>Release Date</span><span>${song['fdate']}</span>";
+				echo "<span>Type</span><span class='type_${song['type']}'>${song['type']}</span>";
+				echo "<span>Status</span><span>${song['status']}</span>";
+				echo "<div>Placeholder for Comment</div>";
+			?>
+		</div>
+		<div id="play_files">
+		</div>
+		<div id="play_links">
+		</div>
+	</div>
 	<!-- TODO: audio player -->
 	<!-- TODO: file formats with play buttons for audio player & download button & file size -->
-	<!-- TODO: erscheinungsjahr -->
-	<!-- TODO: song type -->
-	<!-- TODO: requested by: ... -->
 	<!-- TODO: available on the following services: ... -->
+	<!-- TODO: fix bug with navbar -->
+	<!-- TODO: style text selections -->
 	<?php genFooter(); ?>
 </body>
 </html>

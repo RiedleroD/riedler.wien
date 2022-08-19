@@ -40,6 +40,35 @@ body{
 	padding:0.5em;
 	margin:0;
 }
+/*different accent colors*/
+.type_RRemix{
+	--acc_hh:#FD0;
+	--acc_h:#D5C500;
+	--acc:#AA9000;
+	--acc_d:#7A6300;
+	--acc_dd:#540;
+}
+.type_RRequested{
+	--acc_hh:#FF8800;
+	--acc_h:#D06800;
+	--acc:#A50;
+	--acc_d:#6E3815;
+	--acc_dd:#531;
+}
+.type_Original{
+	--acc_hh:#5F5;
+	--acc_h:#4C4;
+	--acc:#393;
+	--acc_d:#262;
+	--acc_dd:#131;
+}
+.type_Commission{
+	--acc_hh:#C6F;
+	--acc_h:#A5F;
+	--acc:#639;
+	--acc_d:#3C1C5C;
+	--acc_dd:#251436;
+}
 /* scrollbar */
 body{/*doesn't work with newest firefox since they introduced those new scrollbars*/
 	scrollbar-width:auto;
