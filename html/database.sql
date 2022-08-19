@@ -95,8 +95,8 @@ INSERT INTO `Services` VALUES
 CREATE TABLE `Songs` (
   `id` int(11) NOT NULL,
   `name` varchar(64) DEFAULT NULL,
-  `type` enum('rremix','rrequested','original','commission') DEFAULT NULL,
-  `status` enum('planned','drafted','finished','uploaded') DEFAULT NULL,
+  `type` enum('RRemix','RRequested','Original','Commission') NOT NULL,
+  `status` enum('Planned','Drafted','Finished','Uploaded','Removed') NOT NULL,
   `requesterid` int(11) DEFAULT NULL,
   `date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
