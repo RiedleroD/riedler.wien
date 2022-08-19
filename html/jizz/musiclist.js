@@ -1,13 +1,3 @@
-function prepare_player(player){
-	let btn=player.parentElement;
-	btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="'+playbtn_play+'" fill="currentColor"/></svg>'+btn.innerHTML;
-	btn.data_id=Number(player.id.slice(6));
-	btn.id="playbtn"+btn.data_id;
-	btn.data_player=player;
-	btn.data_svg=btn.getElementsByTagName("path")[0];
-	btn.onclick=onclick_player;
-}
-
 document.getElementById("loadmore").firstElementChild.onclick=async function(){
 	//"yes, let's make doing GET requests as weird and convoluted as possible"
 	let loadmore=document.getElementById("loadmore");
@@ -32,10 +22,3 @@ document.getElementById("loadmore").firstElementChild.onclick=async function(){
 	xhr.responseType = "document";
 	xhr.send();
 };
-
-window.addEventListener("load",function(){
-	let players = document.getElementsByTagName("audio");
-	for(let player of players){
-		prepare_player(player);
-	}
-});

@@ -9,16 +9,6 @@ body{
 	padding-bottom:2em;
 }
 /* buttons */
-.btn.play{
-	height:2em;
-	width:1em;
-	padding:0 0.5em;
-	margin:0;
-	cursor:pointer;
-}
-.btn.play>svg>path{
-	transition:d 0.25s;
-}
 #loadmore{
 	display:flex;
 	justify-content:center;

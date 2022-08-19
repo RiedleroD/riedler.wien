@@ -12,7 +12,7 @@
 		echo 'ID doesn\'t match any song: '.$_GET['id'];
 		exit;
 	}
-	genUsual("Riedler - ".$song['name'],"@import '../../style/play.css'","");
+	genUsual('Riedler - '.$song['name'],'@import "../../style/play.css"','<script async src="../../jizz/musicplayer.js"></script>');
 	$prevsong = db_get_previous_song($song['date']);
 	$nextsong = db_get_next_song($song['date']);
 	$prevsongwt = db_get_previous_song_with_type($song['date'],$song['type']);
@@ -21,7 +21,7 @@
 <body>
 	<?php genNavBar(); ?>
 	<div id="play_nav">
-		<div><!-- TODO: color coded buttons by song types -->
+		<div>
 			<?php
 				if($prevsong){
 					echo '<a class="btn" href="./?id='.$prevsong['id'].'">Previous Song</a>';
@@ -61,6 +61,21 @@
 			?>
 		</div>
 		<fieldset id="play_files">
+			<?php
+				$files=db_get_files_by_songid($song['id']);
+				if(count($files)==0){
+					echo '<legend>Due to copyright and/or skill issues, this track does not have any Files associated with it.</legend>';
+				}else{
+					echo '<legend><h3>Files:</h3></legend><div id="tracks">';
+					include("../../befuncs/masterplayer.html");
+					foreach($files as list($typeid,$mime,$typename)){
+						genAudioPlayer($typeid,$song['id'],array($typeid=>$mime));
+						genDownloadButton($song['id'],$typeid);
+						echo "<span>$typename</span>";
+					}
+					echo '</div>';
+				}
+			?>
 		</fieldset>
 		<fieldset id="play_links">
 			<legend><h3>Available on other services:</h3></legend>
@@ -76,9 +91,6 @@
 			?>
 		</fieldset>
 	</div>
-	<!-- TODO: audio player -->
-	<!-- TODO: file formats with play buttons for audio player & download button & file size -->
-	<!-- TODO: available on the following services: ... -->
 	<!-- TODO: fix bug with navbar -->
 	<!-- TODO: style text selections -->
 	<?php genFooter(); ?>

@@ -33,6 +33,7 @@
 }
 #play_content>fieldset{
 	margin-right:1px;
+	align-self:stretch;
 }
 #play_content>fieldset:first-of-type{
 	margin-right:auto;
@@ -77,4 +78,32 @@
 	display:flex;
 	flex-direction:column;
 	align-items:start;
+}
+/* grid with files and masterplayer */
+#tracks{
+	display:grid;
+	grid-gap:0.25em 0;
+	grid-template-columns:0fr 0fr 0fr 1fr;
+}
+#masterplayer{
+	grid-column:1/5;
+	border:none;
+}
+#tracks>.play.btn{
+	border-radius:0.25em 0 0 0.25em;
+	grid-column:1;
+}
+#tracks>.dl.btn{
+	border-radius:0;
+	grid-column:2;
+}
+#tracks>span{
+	display:flex;
+	align-items:center;
+	padding:0 0.5em 0 0.25em;
+	background-color:var(--acc_d);
+	color:var(--acc_h);
+	height:2em;
+	border-radius:0 0.25em 0.25em 0;
+	grid-column:3;
 }

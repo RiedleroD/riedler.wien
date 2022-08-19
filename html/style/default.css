@@ -195,6 +195,18 @@ button.btn:hover{
 	color:var(--txt_h);
 	background-color:var(--bgc_h);
 }
+/* play buttons for masterplayer */
+.btn.play,
+.btn.dl{
+	height:2em;
+	width:1em;
+	padding:0 0.5em;
+	margin:0;
+	cursor:pointer;
+}
+.btn.play>svg>path{
+	transition:d 0.25s;
+}
 /* heterogenous bilateral button */
 .hebi{
 	padding-left:0;
@@ -242,6 +254,7 @@ a.hebi:hover>img{
 	padding-right:0.25em;
 	background-color:var(--bg);
 	border:solid 1px var(--acc_dd);
+	height:2em;
 	align-items:center;
 	vertical-align:middle;/*self align in inline*/
 	--fg:var(--acc_h);

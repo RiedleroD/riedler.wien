@@ -39,16 +39,13 @@
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		
-		$stmt = $db->prepare('SELECT ft.id,ft.mime FROM Files as f INNER JOIN Filetypes as ft ON f.filetypeid=ft.id where f.songid=?');
 		for($i=0;$i<count($result);$i++){
-			$stmt->bindparam(1,$result[$i]['id'],PDO::PARAM_INT);
-			$stmt->execute();
-			$ftypes=array();
-			foreach($stmt->fetchAll() as list($type,$mime)){
-				$ftypes[$type]=$mime;
+			$result[$i]['files']=array();
+			foreach(_db_get_files_by_songid($db,$result[$i]['id']) as list($type,$mime,$name)){
+				$result[$i]['files'][$type]=$mime;
 			}
-			$result[$i]['files']=$ftypes;
 		}
+		
 		return $result;
 	}
 	function db_get_song_by_id($id){
@@ -88,5 +85,13 @@
 			'JOIN Services as s ON l.serviceid=s.id '.
 			'WHERE l.songid=? ORDER BY s.prio',
 			[$id],[PDO::PARAM_INT])->fetchAll();
+	}
+	function _db_get_files_by_songid($db,$id){
+		return _db_get_tpq($db,
+			'SELECT ft.id,ft.mime,ft.name FROM Files as f INNER JOIN Filetypes as ft ON f.filetypeid=ft.id where f.songid=?',
+			[$id],[PDO::PARAM_INT])->fetchAll();
+	}
+	function db_get_files_by_songid($id){
+		return _db_get_files_by_songid(_db_connect(),$id);
 	}
 ?>

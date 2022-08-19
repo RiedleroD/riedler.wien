@@ -1,6 +1,7 @@
 const playbtn_play = "M25 90 49 74l0-48L25 10zM49 74 85 50l0 0L49 26z";
 const playbtn_pause= "M25 85l22.5 0 0-70L25 15zM62.5 85 85 85 85 15 62.5 15z";
 const playbtn_stop = "M25 80l30 0 0-60-30 0zm30 0 30 0 0-60-30 0z";
+const dlbtn_svg    = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="currentColor" d="M20 3h8v28h10l-14 14-14-14h10z"/></svg>';
 
 var curplayer = null;
 var state = 0;//0→stopped, 1→paused, 2→playing
@@ -72,6 +73,15 @@ function setPlayerVol(peru){
 	curplayer.data_player.volume=peru;
 	setProgbarWidth(master_player.data_vol,peru*100,[[0,100]]);
 	master_player.data_voltext.textContent=(Math.round(peru*100)+"%").padStart(4,' ');
+}
+function prepare_player(player){
+	let btn=player.parentElement;
+	btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="'+playbtn_play+'" fill="currentColor"/></svg>'+btn.innerHTML;
+	btn.data_id=Number(player.id.slice(6));
+	btn.id="playbtn"+btn.data_id;
+	btn.data_player=player;
+	btn.data_svg=btn.getElementsByTagName("path")[0];
+	btn.onclick=onclick_player;
 }
 
 function ontimeupdate_player(event){
@@ -150,4 +160,13 @@ window.addEventListener("load",function(){
 	master_player.data_prog.onmousemove=ondrag_masterprog;
 	master_player.data_vol.onclick=onclick_mastervol;
 	master_player.data_vol.onmousemove=ondrag_mastervol;
+	
+	let players = document.getElementsByTagName("audio");
+	for(let player of players){
+		prepare_player(player);
+	}
+	let dlbtns = document.querySelectorAll(".btn.dl");
+	for(let dlbtn of dlbtns){
+		dlbtn.innerHTML=dlbtn_svg;
+	}
 });
