@@ -8,6 +8,9 @@ document.getElementById("loadmore").firstElementChild.onclick=async function(){
 		if(xhr.status == 200){
 			let grid=document.getElementById("tracks");
 			let allanchors=this.responseXML.getElementsByTagName("a");
+			if(allanchors.length<10){
+				loadmore.style.display='none';
+			}
 			loadmore.dataset.lastdate=allanchors[allanchors.length-1].children[3].textContent;
 			for(let child of [...this.responseXML.body.children]){//WHY THE FUCK
 				grid.appendChild(child);
