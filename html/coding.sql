@@ -22,9 +22,9 @@ CREATE TABLE `Services` (
   `id` int(11),
   `abbr` varchar(5) NOT NULL,
   `prio` int,
-  `name` varchar(32) NOT NULL,
-  `mylink` varchar(255),
   `plink` varchar(255),
+  `mylink` varchar(255),
+  `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `prio` (`prio`),
   UNIQUE KEY `abbr` (`abbr`)
