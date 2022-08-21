@@ -1,4 +1,5 @@
 <?php
+	include('db.php');
 	const SELECTSONG = 'SELECT s.id as id,s.name as name,type,status,r.name as requester,DATE_FORMAT(date,"%d.%m.%Y") as fdate,date,c.comment FROM Songs as s '.
 	'LEFT JOIN Users as r ON s.requesterid=r.id '.
 	'LEFT JOIN Comments as c ON c.songid=s.id';
@@ -6,22 +7,6 @@
 		$db = new PDO("mysql:host=localhost;dbname=rwienmusic","riedlerwien");
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $db;
-	}
-	function _db_get_pq($db,$query,$args){
-		$stmt = $db->prepare($query);
-		$stmt->execute($args);
-		return $stmt;
-	}
-	function _db_get_tpq($db,$query,$args,$types){
-		$stmt = $db->prepare($query);
-		for($i=0;$i<count($args);$i++){
-			$stmt->bindparam($i+1,$args[$i],$types[$i]);
-		}
-		$stmt->execute();
-		return $stmt;
-	}
-	function _hash_passwd($passwd){
-		return hash('whirlpool',"riedler.wien".$passwd,true);
 	}
 	function db_get_services(){
 		$db = _db_connect();
