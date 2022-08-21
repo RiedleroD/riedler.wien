@@ -31,9 +31,18 @@
 		$db = _db_connect();
 		return (int)(_db_get_pq($db,"SELECT COUNT(id) FROM Songs",[])->fetch()[0]);
 	}
-	function db_get_songs($start,$max){
+	function db_get_songs($start,$max,$nooriginals=false,$norremixes=false,$nocommissions=false,$norrequests=false){
 		$db = _db_connect();
-		$stmt = $db->prepare(SELECTSONG.' WHERE s.date<:maxdate ORDER BY date DESC LIMIT :maxresults');
+		$notypes = '';
+		if($nooriginals)
+			$notypes.=' AND type!=\'Original\'';
+		if($norremixes)
+			$notypes.=' AND type!=\'RRemix\'';
+		if($nocommissions)
+			$notypes.=' AND type!=\'Commission\'';
+		if($norrequests)
+			$notypes.=' AND type!=\'RRequested\'';
+		$stmt = $db->prepare(SELECTSONG.' WHERE s.date<:maxdate'.$notypes.' ORDER BY date DESC LIMIT :maxresults');
 		$stmt->bindparam(':maxdate',$start,PDO::PARAM_STR);
 		$stmt->bindparam(':maxresults',$max,PDO::PARAM_INT);//whoever made PDO are idiots
 		$stmt->execute();

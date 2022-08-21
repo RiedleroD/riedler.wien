@@ -1,8 +1,8 @@
 document.addEventListener("click",function(event){
-	event.preventDefault();
 	let anchor = event.target
 	while(anchor){
 		if(anchor.tagName=='A' && anchor.href){
+			event.preventDefault();
 			//preload next website while animation plays out
 			//(not working, but what the hell. I did it like in the MDN example. Not my fault.)
 			let preload=document.createElement("link");

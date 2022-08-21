@@ -6,7 +6,11 @@
 		if(array_key_exists('startdate',$_GET) && array_key_exists('max_amount',$_GET) && array_key_exists('ashtml',$_GET)){
 			include("../befuncs/db.php");
 			include("../befuncs/snips.php");
-			$data = db_get_songs($_GET['startdate'],(int)$_GET['max_amount']);
+			$data = db_get_songs($_GET['startdate'],(int)$_GET['max_amount'],
+				array_key_exists('nooriginals',$_GET),
+				array_key_exists('norremixes',$_GET),
+				array_key_exists('nocommissions',$_GET),
+				array_key_exists('norrequests',$_GET));
 			if($_GET['ashtml']=='0'){
 				http_response_code(501);
 				echo 'json output support has been removed temporarily';
@@ -48,7 +52,7 @@
 				<th>Explanation</th>
 			</tr>
 			<tr>
-				<td rowspan="4">moresongs</td>
+				<td rowspan="8">moresongs</td>
 				<td></td>
 				<td></td>
 				<td>Returns a list of Songs</td>
@@ -62,6 +66,26 @@
 				<td>max_amount</td>
 				<td>number</td>
 				<td>The maximum amount of songs that should be returned</td>
+			</tr>
+			<tr>
+				<td>nooriginals</td>
+				<td></td>
+				<td>If defined, originals are ommitted from results</td>
+			</tr>
+			<tr>
+				<td>norremixes</td>
+				<td></td>
+				<td>If defined, rremixes are ommitted from results</td>
+			</tr>
+			<tr>
+				<td>nocommissions</td>
+				<td></td>
+				<td>If defined, commissions are ommitted from results</td>
+			</tr>
+			<tr>
+				<td>norrequests</td>
+				<td></td>
+				<td>If defined, rrequests are ommitted from results</td>
 			</tr>
 			<tr>
 				<td>ashtml</td>

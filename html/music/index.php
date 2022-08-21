@@ -29,7 +29,21 @@
 	</fieldset>
 	<fieldset id="trackfieldset">
 		<legend><h3>Tracks</h3></legend>
-		<span>Placeholder for filter settings</span>
+		<form id="filter_form">
+			<input id="filter_originals" type="checkbox" checked autocomplete="off"/>
+			<label for="filter_originals" class="btn hebi"><span></span><span>Originals</span></label>
+			<input id="filter_commissions" type="checkbox" checked autocomplete="off"/>
+			<label for="filter_commissions" class="btn hebi"><span></span><span>Commissions</span></label>
+			<input id="filter_rremixes" type="checkbox" checked autocomplete="off"/>
+			<label for="filter_rremixes" class="btn hebi"><span></span><span>RRemixes</span></label>
+			<input id="filter_rrequests" type="checkbox" checked autocomplete="off"/>
+			<label for="filter_rrequests" class="btn hebi"><span></span><span>RRequests</span></label>
+			<br/>
+			<span class="btn hebi"><input id="filter_amount" type="number" min="1" max="50" step="1" value="10" autocomplete="off"/>Results per load</span>
+			<br/>
+			<br/>
+			<button type="submit" class="btn">Apply Filters</button>
+		</form>
 	</fieldset>
 	<?php include("../befuncs/masterplayer.html") ?>
 	<div id="tracks">

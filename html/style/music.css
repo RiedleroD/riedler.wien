@@ -78,3 +78,28 @@ body{
 	border-radius:0.25em 0 0 0.25em;
 	background-color:var(--acc_d);
 }
+/* filter buttons */
+input[type='checkbox']{display:none}
+input[type='checkbox']+label{cursor:pointer}
+input[type='checkbox']+label.hebi>:first-child{
+	transition: linear box-shadow 0.2s;
+	box-shadow:	inset 0 0 0 0.5em				var(--acc),
+				inset 0 0 0 calc(0.5em + 1px)	var(--acc_d);
+}
+input[type='checkbox']:checked+label.hebi>:first-child{
+	box-shadow:	inset 0 0 0 0.5em				var(--acc),
+				inset 0 0 0 calc(0.5em + 1px)	var(--acc_d),
+				inset 0 0 0 calc(0.5em + 2px)	var(--acc),
+				inset 0 0 0 1em	var(--acc_d);
+}
+input[type='number']{
+	appearance:textfield;
+	border:none;
+	padding:0;
+	text-align:center;
+	font-size:inherit;
+	font-family:inherit;
+}
+input[type='number']:focus{
+	outline:none
+}

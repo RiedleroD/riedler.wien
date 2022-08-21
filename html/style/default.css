@@ -217,13 +217,15 @@ button.btn:hover{
 	padding-left:0;
 	overflow:clip;
 }
-.hebi>:is(img,div){
-	display:inline-block;
+.hebi>:first-child{
+	display:inline-flex;
 	height:2em;
 	width:2em;
 	align-self:center;
+	justify-content:center;
 	margin-right:0.6em;
 	background-color:var(--acc);
+	color:var(--acc_d)
 }
 .hebi>div{
 	width:2em;
