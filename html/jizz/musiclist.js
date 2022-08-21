@@ -6,12 +6,10 @@ document.getElementById("loadmore").firstElementChild.onclick=async function(){
 	xhr.open("GET", "/api?c=moresongs&startdate="+lastdate+"&max_amount=10&ashtml=1",true);
 	xhr.onload=function(){
 		if(xhr.status == 200){
-			console.log(xhr);
 			let grid=document.getElementById("tracks");
-			let allspans=this.responseXML.getElementsByTagName("span");
-			loadmore.dataset.lastdate=allspans[allspans.length-1].textContent;
+			let allanchors=this.responseXML.getElementsByTagName("a");
+			loadmore.dataset.lastdate=allanchors[allanchors.length-1].children[3].textContent;
 			for(let child of [...this.responseXML.body.children]){//WHY THE FUCK
-				console.log(child);
 				grid.appendChild(child);
 				if(child.tagName=="BUTTON"){
 					prepare_player(child.firstElementChild);
