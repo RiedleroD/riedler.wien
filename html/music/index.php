@@ -49,7 +49,7 @@
 	<div id="tracks">
 		<a id="tracks_header">
 			<span>Name</span>
-			<span>status</span>
+			<span>type</span>
 			<span>requester</span>
 			<span>release date</span>
 			<div></div>

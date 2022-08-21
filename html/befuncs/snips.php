@@ -79,7 +79,7 @@
 		foreach($data as $song){
 			echo "<a href='./play?id=${song['id']}'>".
 				"<span>${song['name']}</span>".
-				"<span>${song['status']}</span>".
+				"<span>${song['type']}</span>".
 				"<span>${song['requester']}</span>".
 				"<span>${song['fdate']}</span>";
 			if(count($song['files'])>0){
