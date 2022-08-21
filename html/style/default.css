@@ -37,7 +37,7 @@ body{
 	background-color:var(--acc_dd);
 	font-family:Tahoma, Arial, sans-serif;
 	padding:0.5em;
-	margin:0;
+	margin:0 0 1em 0;
 }
 /*different accent colors*/
 .type_RRemix{

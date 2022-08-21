@@ -84,6 +84,9 @@
 	align-items:start;
 	width:50%;
 }
+#play_links>.btn{
+	margin-right:0.25em;
+}
 /* column with files and masterplayer */
 #play_files{
 	width:80%;
@@ -117,4 +120,30 @@
 	height:2em;
 	border-radius:0 0.25em 0.25em 0;
 	grid-column:3;
+}
+/* fixes for mobile mostly */
+@media (orientation: portrait) {
+	#play_content{
+		flex-direction:row;
+		flex-wrap:wrap;
+	}
+	#play_content>fieldset{
+		margin-right:0;
+		margin-bottom:1px;
+		box-sizing:border-box;
+	}
+	#play_info{
+		max-width:unset;
+		border-radius:0.25em;
+		margin-bottom:0.5em;
+		margin-right:0.25em;
+	}
+	#play_files{
+		flex-grow:1;
+		width:auto;
+	}
+	#play_links{
+		display:inline;
+		width:100%;
+	}
 }
