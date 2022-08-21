@@ -1,6 +1,7 @@
 <?php
 	include("../befuncs/snips.php");
-	include("../befuncs/db.php");
+	include("../befuncs/music.php");
+	include("../befuncs/db_music.php");
 	genUsual("Riedler's Music","@import '../style/music.css'",
 			 '<script async src="../jizz/musicplayer.js"></script><script async src="../jizz/musiclist.js"></script>');
 ?>

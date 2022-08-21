@@ -5,7 +5,7 @@
 		http_response_code(400);
 		die();
 	}
-	include("../../befuncs/db.php");
+	include("../../befuncs/db_music.php");
 	$name=db_get_song_by_id($id)["name"];
 	if($name==NULL){
 		http_response_code(404);

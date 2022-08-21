@@ -1,6 +1,7 @@
 <?php
 	include("../../befuncs/snips.php");
-	include("../../befuncs/db.php");
+	include("../../befuncs/music.php");
+	include("../../befuncs/db_music.php");
 	if(!array_key_exists('id',$_GET)){
 		http_response_code(400);
 		echo 'mandatory ID parameter not specified';
