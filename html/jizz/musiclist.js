@@ -1,4 +1,4 @@
-document.getElementById("loadmore").firstElementChild.onclick=async function(){
+document.getElementById("loadmore").firstElementChild.onclick=function(){
 	//"yes, let's make doing GET requests as weird and convoluted as possible"
 	let loadmore=document.getElementById("loadmore");
 	let xhr = new XMLHttpRequest();
