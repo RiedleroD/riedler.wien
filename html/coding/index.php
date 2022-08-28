@@ -20,9 +20,14 @@
 			services_as_html(db_get_services());
 		?>
 	</fieldset>
-	<div id="projectlist">
+	<div class="projectlist">
 		<?php
+			$lastdead=false;
 			foreach(db_get_projects() as $project){
+				if(!$lastdead && $project['status']=='Dead'){
+					echo '</div><hr><div class="projectlist">';
+					$lastdead=true;
+				}
 				echo '<div class="project';
 				if($project['status']=='Dead'){
 					echo ' dead';
@@ -38,7 +43,8 @@
 				echo '</span>'.
 					 "<span class='pstatus'>${project['status']}</span>".
 					 '</div>'.
-					 "<p>${project['shortdesc']}</p>";
+					 "<p>${project['shortdesc']}</p>".
+					 '</div>';
 			}
 		?>
 	</div>

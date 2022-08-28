@@ -1,11 +1,16 @@
+.projectlist{
+	display:grid;
+	grid-template-columns:1fr 1fr 1fr;
+	align-items:start;
+	grid-template-rows:masonry;/*only works in the newest of browsers*/
+}
 .project{
-	display:inline-block;
 	background-color:var(--cl_d);
 	color:var(--cl_h);
-	padding:0.25rem;
+	padding:0.25em;
+	margin:0.25em;
 	border-radius:0.25em;
 	overflow:clip;
-	max-width:32%;
 	--cl_h:var(--acc_h);
 	--cl:var(--acc);
 	--cl_d:var(--acc_d);
@@ -30,6 +35,7 @@
 	padding:0.25em 0.5em;
 	background-color:var(--cl);
 	color:var(--cl_d);
+	white-space:nowrap;
 }
 .project>.projectheader>h3{
 	border-bottom-right-radius:0.25em;
@@ -40,12 +46,13 @@
 	border-bottom-right-radius:0.25em;
 	margin-right:0.25em;
 	justify-self:start;
+	height:1.5em;
 }
 .project>.projectheader>.plinks>a{
-	display:inline-block;
-	height:1.5em;
-	width:1.5em;
-	justify-self:end;
+	line-height:0;
+}
+.project>.projectheader>.plinks>a+a{
+	margin-left:0.25em;
 }
 .project>.projectheader>.pstatus{
 	border-bottom-left-radius:0.25em;
@@ -55,9 +62,12 @@
 .project>.projectheader>.pdate{
 	border-bottom-left-radius:0.25em;
 	justify-self:stretch;
+	justify-content:center;
 }
 .project>p{
 	margin:0.33em 0.33em 0.25em 0.33em;
 	text-align:justify;
 	text-rendering:optimizelegibility;
 }
+.project>p>a{color:var(--acc_h)}
+.project>p>a:hover{color:var(--acc_hh)}
