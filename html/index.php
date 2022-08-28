@@ -55,7 +55,7 @@
 		<fieldset>
 			<legend><h3>Userstyles</h3></legend>
 			<?php
-				genHeBiLink(rwicon("usrw"),"userstyles.world","https://userstyles.world/user/riedler");
+				genHeBiLink(rwicon("usw"),"userstyles.world","https://userstyles.world/user/riedler");
 				genHeBiLink(rwicon("gh"),"Userstyles Repository","https://github.com/RiedleroD/userstyles-riedler");
 			?>
 		</fieldset>
