@@ -1,3 +1,5 @@
+-- TODO: add date & status to projects
+
 -- MySQL dump 10.13  Distrib 5.5.60, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: rwiencoding
@@ -11,7 +13,9 @@
 CREATE TABLE `Projects` (
   `id` int(11) NOT NULL,
   `name` varchar(24) NOT NULL,
-  `shortdesc` varchar(255) NOT NULL
+  `shortdesc` varchar(255) NOT NULL,
+  `status` enum('Active','Maintained','On Hold','Dead') NOT NULL,
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

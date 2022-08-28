@@ -50,6 +50,9 @@
 		}
 		echo " <span class='btn hebi'>$img$txt</span> ";
 	}
+	function genImgLink($img,$href){
+		echo "<a href='$href'><img src='$img'/></a>";
+	}
 	#no idea what sfto means, but it's been the folder with all my images for
 	#quite some time, so it's staying that way.
 	#TODO: replace with databse function
@@ -61,5 +64,15 @@
 			throw new Exception("rwicon name length can't be longer than 5 characters. Instead, $name is ".strlen($name));
 		}
 		return "https://riedler.wien/sfto/rwicons/$name.svg";
+	}
+	function services_as_html($services){
+		foreach($services as list($abbr, $mylink, $name)){
+			genHeBiLink(rwicon($abbr),$name,complete_link_protocol($mylink));
+		}
+	}
+	function complete_link_protocol($link){
+		if(strpos($link,"://"))
+			return $link;//return original link if protocol is already specified
+		return "https://".$link;
 	}
 ?>

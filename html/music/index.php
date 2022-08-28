@@ -21,11 +21,7 @@
 	<fieldset>
 		<legend><h3>Services</h3></legend>
 		<?php
-			foreach(db_get_services() as list($abbr, $mylink, $name)){
-				if(!strpos($mylink,"://"))
-					$mylink="https://".$mylink;
-				genHeBiLink(rwicon($abbr),$name,$mylink);
-			}
+			services_as_html(db_get_services());
 		?>
 	</fieldset>
 	<fieldset id="trackfieldset">

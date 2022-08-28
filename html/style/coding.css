@@ -1,0 +1,63 @@
+.project{
+	display:inline-block;
+	background-color:var(--cl_d);
+	color:var(--cl_h);
+	padding:0.25rem;
+	border-radius:0.25em;
+	overflow:clip;
+	max-width:32%;
+	--cl_h:var(--acc_h);
+	--cl:var(--acc);
+	--cl_d:var(--acc_d);
+}
+.project.dead{
+	--cl_h:var(--gry_h);
+	--cl:var(--gry);
+	--cl_d:var(--gry_d);
+}
+.project>.projectheader{
+	display:grid;
+	grid-template-columns:0fr 0fr;
+	justify-content:space-between;
+	margin:-0.25em -0.25em 0.25em -0.25em;
+}
+.project>.projectheader>*{
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+	justify-items:start;
+	margin:0;
+	padding:0.25em 0.5em;
+	background-color:var(--cl);
+	color:var(--cl_d);
+}
+.project>.projectheader>h3{
+	border-bottom-right-radius:0.25em;
+	justify-self:stretch;
+}
+.project>.projectheader>.plinks{
+	padding:0 0.25em 0.25em 0.25em;
+	border-bottom-right-radius:0.25em;
+	margin-right:0.25em;
+	justify-self:start;
+}
+.project>.projectheader>.plinks>a{
+	display:inline-block;
+	height:1.5em;
+	width:1.5em;
+	justify-self:end;
+}
+.project>.projectheader>.pstatus{
+	border-bottom-left-radius:0.25em;
+	margin-left:0.25em;
+	justify-self:end;
+}
+.project>.projectheader>.pdate{
+	border-bottom-left-radius:0.25em;
+	justify-self:stretch;
+}
+.project>p{
+	margin:0.33em 0.33em 0.25em 0.33em;
+	text-align:justify;
+	text-rendering:optimizelegibility;
+}
