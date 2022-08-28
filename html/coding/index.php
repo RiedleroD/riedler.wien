@@ -38,7 +38,7 @@
 					 "<span class='pdate'>${project['mydate']}</span>".
 					 '<span class="plinks">';
 				foreach(db_get_links_by_pid($project['id']) as $service){
-					genImgLink(rwicon($service['abbr']),complete_link_protocol($service['link']));
+					genImgLink(rwicon($service['abbr']),complete_link_protocol($service['link']),$service['name']);
 				}
 				echo '</span>'.
 					 "<span class='pstatus'>${project['status']}</span>".

@@ -50,8 +50,13 @@
 		}
 		echo " <span class='btn hebi'>$img$txt</span> ";
 	}
-	function genImgLink($img,$href){
-		echo "<a href='$href'><img src='$img'/></a>";
+	function genImgLink($img,$href,$alt=null){
+		if($alt){
+			$tmp=" alt='Link to $alt'";
+		}else{
+			$tmp='';
+		}
+		echo "<a href='$href'><img src='$img'$tmp/></a>";
 	}
 	#no idea what sfto means, but it's been the folder with all my images for
 	#quite some time, so it's staying that way.
