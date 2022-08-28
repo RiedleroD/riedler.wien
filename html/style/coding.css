@@ -50,6 +50,9 @@
 }
 .project>.projectheader>.plinks>a{
 	line-height:0;
+	width:1.5em;
+	border-radius:0.125em;
+	overflow:clip;
 }
 .project>.projectheader>.plinks>a+a{
 	margin-left:0.25em;
