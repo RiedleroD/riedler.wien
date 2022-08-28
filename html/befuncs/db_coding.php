@@ -10,7 +10,7 @@
 	}
 	function db_get_services(){
 		$db = _db_connect();
-		return _db_get_pq($db,"SELECT abbr,mylink,name FROM Services ORDER BY prio ASC",[])->fetchAll();
+		return _db_get_pq($db,"SELECT abbr,mylink,name FROM Services WHERE id>0 ORDER BY prio ASC",[])->fetchAll();
 	}
 	function db_get_project_by_id($id){
 		return _db_get_tpq(_db_connect(),
