@@ -17,11 +17,17 @@ body{
 		txt for text, brd for border and bgc for background color
 	 */
 	/*accent colors*/
-	--acc_hh:#F6D3AD;
-	--acc_h:#D3B089;
-	--acc:#AE895F;
-	--acc_d:#6F5230;
-	--acc_dd:#493621;
+	--acc_hh:#AFF;
+	--acc_h:#8CC;
+	--acc:#6AA;
+	--acc_d:#244;
+	--acc_dd:#122;
+	/*brown colors*/
+	--brn_hh:#F6D3AD;
+	--brn_h:#D3B089;
+	--brn:#AE895F;
+	--brn_d:#6F5230;
+	--brn_dd:#493621;
 	/*grey colors*/
 	--gry_h:#E0E0E0;
 	--gry:#BCBCBC;
@@ -129,7 +135,7 @@ a:hover{
 	top:0;
 	background:
 		linear-gradient(to right,var(--gry) 2em,var(--gry_d) 50%) padding-box,
-		linear-gradient(to right,var(--acc_d) calc(2em + 1px),var(--gry_d) 2em,var(--gry) 50%) border-box;
+		linear-gradient(to right,var(--brn_d) calc(2em + 1px),var(--gry_d) 2em,var(--gry) 50%) border-box;
 	border-radius:0 0 0.25em 0.25em;
 	overflow:clip;
 	width:calc(100% + 1em - 2px);
@@ -246,7 +252,7 @@ a.hebi:hover>img{
 	transform:translateX(-50%) skew(var(--skewr));
 	height:calc(100% - 2em);
 	pointer-events:none;
-	border-left:solid 50vw var(--acc);
+	border-left:solid 50vw var(--brn);
 	border-right:solid 50vw var(--gry);
 	animation:load-in 0.5s normal both cubic-bezier(.76,.07,0,1);
 	animation-iteration-count:1;

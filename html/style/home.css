@@ -25,8 +25,13 @@
 }
 /* body */
 body{
-	background:linear-gradient(50deg,var(--acc) 50%, var(--gry) 50%);
+	background:linear-gradient(calc(90deg - var(--skewr)),var(--brn) 50%, var(--gry) 50%);
 	background-size:100vw 100vh;
+	--acc_hh:var(--brn_hh);
+	--acc_h:var(--brn_h);
+	--acc:var(--brn);
+	--acc_d:var(--brn_d);
+	--acc_dd:var(--brn_dd);
 }
 /* slanted stuff container */
 .slant{
