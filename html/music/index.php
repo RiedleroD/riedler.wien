@@ -52,7 +52,7 @@
 			<div></div>
 		</a>
 		<?php
-			$data = db_get_songs('2100',10);
+			$data = db_get_songs('2100-01-01',10);
 			$lastdate = echo_html_from_songlist($data);
 		?>
 	</div>

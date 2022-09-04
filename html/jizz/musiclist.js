@@ -40,6 +40,6 @@ document.getElementById("filter_form").onsubmit=function(event){
 		trackHeader.nextElementSibling.remove();
 	}
 	let loadmore = document.getElementById("loadmore");
-	loadmore.dataset.lastdate='2100';
+	loadmore.dataset.lastdate='2100-01-01';
 	loadmore.firstElementChild.click();
 }
