@@ -41,7 +41,6 @@
 	grid-template-columns:auto auto;
 	border-radius:0 0.25em 0.25em 0.25em;
 	overflow:clip;
-	max-width:25%;/*only on horizontal screens*/
 	white-space:nowrap;
 }
 #play_info>:is(span,div){
@@ -133,7 +132,6 @@
 		box-sizing:border-box;
 	}
 	#play_info{
-		max-width:unset;
 		border-radius:0.25em;
 		margin-bottom:0.5em;
 		margin-right:0.25em;
