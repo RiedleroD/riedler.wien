@@ -101,6 +101,9 @@ input[type='number']{
 	font-size:inherit;
 	font-family:inherit;
 }
+input[type=number]::-webkit-inner-spin-button {
+  display:none;/*okay. chrome. WHY THE FUCK do you STILL insert the FUCKING spinner when i SPECIFICALLY set the input appearance to TEXT FIELD?!?!?*/
+}
 input[type='number']:focus{
 	outline:none
 }
