@@ -226,14 +226,13 @@ button.btn:hover{
 .hebi>:first-child{
 	display:inline-flex;
 	height:2em;
-	width:2em;
 	align-self:center;
 	justify-content:center;
 	margin-right:0.6em;
 	background-color:var(--acc);
 	color:var(--acc_d)
 }
-.hebi>div{
+.hebi>:first-child:not(img){
 	width:2em;
 }
 a.hebi:hover>div{
