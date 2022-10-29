@@ -76,6 +76,7 @@
 	grid-column:1/3;
 	padding:0.5em 0.75em;
 	text-align:justify;
+	white-space:normal;
 }
 /* column with links to external services which host the song */
 #play_links{
@@ -142,5 +143,11 @@
 	}
 	#play_links{
 		display:inline;
+	}
+}
+/* fixes for non-mobile mostly */
+@media (orientation: landscape) {
+	#play_info{
+		max-width:min(30em,50%);
 	}
 }
