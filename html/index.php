@@ -11,7 +11,6 @@
 			<legend><h3>Support me!</h3></legend>
 			<?php
 				genHeBiLink(rwicon("lp"),"Liberapay","https://liberapay.com/Riedler");
-				genHeBiLink(rwicon("pt"),"Patreon","https://patreon.com/RiedlerM");
 				genHeBiLink(rwicon("fv"),"Fiverr","https://www.fiverr.com/s2/1e37f97239");
 			?>
 		</fieldset>
