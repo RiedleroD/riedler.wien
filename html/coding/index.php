@@ -9,10 +9,8 @@
 	<h1>Riedler's Coding Projects</h1>
 	<fieldset>
 		<legend><h3>Support me!</h3></legend>
-		<?php genHeBiLink(rwicon("lp"),"Liberapay","https://liberapay.com/Riedler"); ?>
-		and
-		<?php genHeBiLink(rwicon("pt"),"Patreon","https://patreon.com/RiedlerM"); ?>
-		are ways to give me money, so I can contribute to Open-Source projects without worrying about monetary issues.
+		You can donate money via <?php genHeBiLink(rwicon("lp"),"Liberapay","https://liberapay.com/Riedler"); ?>,
+		so I can contribute to Open-Source projects without worrying about monetary issues.
 	</fieldset>
 	<fieldset>
 		<legend><h3>Services</h3></legend>
