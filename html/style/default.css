@@ -17,11 +17,11 @@ body{
 		txt for text, brd for border and bgc for background color
 	 */
 	/*accent colors*/
-	--acc_hh:#AFF;
-	--acc_h:#8CC;
-	--acc:#6AA;
-	--acc_d:#244;
-	--acc_dd:#122;
+	--acc_hh:var(--brn_hh);/*#AFF;*/
+	--acc_h:var(--brn_h);/*#8CC;*/
+	--acc:var(--brn);/*#6AA;*/
+	--acc_d:var(--brn_d);/*#244;*/
+	--acc_dd:var(--brn_dd);/*#122;*/
 	/*brown colors*/
 	--brn_hh:#F6D3AD;
 	--brn_h:#D3B089;
