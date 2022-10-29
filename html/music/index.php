@@ -11,9 +11,7 @@
 	<fieldset>
 		<legend><h3>Support me!</h3></legend>
 		<?php genHeBiLink(rwicon("lp"),"Liberapay","https://liberapay.com/Riedler"); ?>
-		and
-		<?php genHeBiLink(rwicon("pt"),"Patreon","https://patreon.com/RiedlerM"); ?>
-		are ways to give me money, so I can make music without worrying about monetary issues.<br/>
+		is a way to give me money, so I can make music without worrying about monetary issues.<br/>
 		You can also comission a custom piece of music via 
 		<?php genHeBiLink(rwicon("fv"),"Fiverr","https://www.fiverr.com/s2/1e37f97239"); ?>
 		- prices vary between 5-30€.
