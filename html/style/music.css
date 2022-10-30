@@ -20,6 +20,7 @@ body{
 	grid-auto-flow:dense;
 	gap:1px 0;
 	margin-top:0.5em;
+	overflow-x:auto;
 }
 #tracks>a{
 	display:contents;
