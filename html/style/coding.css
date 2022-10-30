@@ -77,3 +77,10 @@
 }
 .project>p>a{color:var(--acc_h)}
 .project>p>a:hover{color:var(--acc_hh)}
+
+/*fixes for mobile*/
+@media (orientation: portrait) {
+	.projectlist{
+		grid-template-columns:1fr;
+	}
+}
