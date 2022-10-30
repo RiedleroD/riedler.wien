@@ -77,7 +77,8 @@
 }
 .project>p>a{color:var(--acc_h)}
 .project>p>a:hover{color:var(--acc_hh)}
-
+/*horizontal divider*/
+hr{border-color:var(--gry_d)}
 /*fixes for mobile*/
 @media (orientation: portrait) {
 	.projectlist{
