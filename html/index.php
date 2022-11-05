@@ -14,6 +14,7 @@
 			<?php
 				genHeBiLink(rwicon("lp"),"Liberapay","https://liberapay.com/Riedler");
 				genHeBiLink(rwicon("fv"),"Fiverr","https://www.fiverr.com/s2/1e37f97239");
+				genHeBiLink(rwicon("kf"),"Ko-fi","https://ko-fi.com/riedler")
 			?>
 		</fieldset>
 		<fieldset>
