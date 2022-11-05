@@ -6,12 +6,13 @@
 		die();
 	}
 	include("../../befuncs/db_music.php");
-	$name=db_get_song_by_id($id)["name"];
+	$db=new musicdb();
+	$name=$db->get_song_by_id($id)["name"];
 	if($name==NULL){
 		http_response_code(404);
 		die();
 	}
-	$ftype=db_get_filetype_by_id($type);
+	$ftype=$db->get_filetype_by_id($type);
 	if($ftype==NULL){
 		http_response_code(404);
 		die();

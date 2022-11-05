@@ -1,9 +1,10 @@
 <?php
-	include("../befuncs/snips.php");
-	include("../befuncs/music.php");
-	include("../befuncs/db_music.php");
+	require_once("../befuncs/snips.php");
+	require_once("../befuncs/music.php");
+	require_once("../befuncs/db_music.php");
 	genUsual("Riedler's Music","@import '../style/music.css'",
 			 '<script async src="../jizz/musicplayer.js"></script><script async src="../jizz/musiclist.js"></script>');
+	$db=new musicdb();
 ?>
 <body>
 	<?php genNavBar(); ?>
@@ -19,7 +20,7 @@
 	<fieldset>
 		<legend><h3>Services</h3></legend>
 		<?php
-			services_as_html(db_get_services());
+			services_as_html($db->get_services());
 		?>
 	</fieldset>
 	<fieldset id="trackfieldset">
@@ -50,12 +51,12 @@
 			<div></div>
 		</a>
 		<?php
-			$data = db_get_songs('2100-01-01',10);
+			$data = $db->get_songs('2100-01-01',10);
 			$lastdate = echo_html_from_songlist($data);
 		?>
 	</div>
 	<?php
-		if(db_get_song_count()>10)
+		if($db->get_song_count()>10)
 			echo "<div id='loadmore' data-lastdate='$lastdate'><a class='btn'>Load More</a></div>";
 	?>
 	<?php genFooter(); ?>

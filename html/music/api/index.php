@@ -6,7 +6,8 @@
 		if(array_key_exists('startdate',$_GET) && array_key_exists('max_amount',$_GET) && array_key_exists('ashtml',$_GET)){
 			include("../../befuncs/db_music.php");
 			include("../../befuncs/music.php");
-			$data = db_get_songs($_GET['startdate'],(int)$_GET['max_amount'],
+			$db=new musicdb();
+			$data = $db->get_songs($_GET['startdate'],(int)$_GET['max_amount'],
 				array_key_exists('nooriginals',$_GET),
 				array_key_exists('norremixes',$_GET),
 				array_key_exists('nocommissions',$_GET),

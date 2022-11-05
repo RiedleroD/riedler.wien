@@ -1,8 +1,9 @@
 <?php
-	include("../befuncs/snips.php");
-	include("../befuncs/coding.php");
-	include("../befuncs/db_coding.php");
+	require_once("../befuncs/snips.php");
+	require_once("../befuncs/coding.php");
+	require_once("../befuncs/db_coding.php");
 	genUsual('Riedler\'s Coding Projects','@import "../style/coding.css"','');
+	$db=new codingdb();
 ?>
 <body>
 	<?php genNavBar(); ?>
@@ -15,13 +16,13 @@
 	<fieldset>
 		<legend><h3>Services</h3></legend>
 		<?php
-			services_as_html(db_get_services());
+			services_as_html($db->get_services());
 		?>
 	</fieldset>
 	<div class="projectlist">
 		<?php
 			$lastdead=false;
-			foreach(db_get_projects() as $project){
+			foreach($db->get_projects() as $project){
 				if(!$lastdead && $project['status']=='Dead'){
 					echo '</div><hr><div class="projectlist">';
 					$lastdead=true;
@@ -35,7 +36,7 @@
 					 "<h3>${project['name']}</h3>".
 					 "<span class='pdate'>${project['mydate']}</span>".
 					 '<span class="plinks">';
-				foreach(db_get_links_by_pid($project['id']) as $service){
+				foreach($db->get_links_by_pid($project['id']) as $service){
 					genImgLink(rwicon($service['abbr']),complete_link_protocol($service['link']),$service['name']);
 				}
 				echo '</span>'.
