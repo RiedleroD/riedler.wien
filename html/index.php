@@ -49,6 +49,7 @@
 		<fieldset>
 			<legend><h3>Gaming</h3></legend>
 			<?php
+				genHeBiLink(rwicon("mnspr"),"Minesweeper","https://minesweeper.online/player/7449348");
 				genHeBiLink(rwicon("spdrn"),"speedrun.com","https://www.speedrun.com/user/Riedler");
 				genHeBiLink(rwicon("mmlb"),"Mega Man Leaderboards","https://megamanleaderboards.net/index.php?page=runner&name=Riedler");
 				genHeBiLink(rwicon("yt"),"Youtube","https://www.youtube.com/channel/UCCvjTX0Sy29dkMSZ5V8rM5Q")
