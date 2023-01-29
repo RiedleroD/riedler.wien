@@ -133,18 +133,15 @@ a:hover{
 	display:flex;
 	position:sticky;
 	top:0;
-	background:
-		linear-gradient(to right,var(--gry) 2em,var(--gry_d) 50%) padding-box,
-		linear-gradient(to right,var(--brn_d) calc(2em + 1px),var(--gry_d) 2em,var(--gry) 50%) border-box;
-	border-radius:0 0 0.25em 0.25em;
-	overflow:clip;
-	width:calc(100% + 1em - 2px);
+	width:calc(100% + 1em);
 	margin:-0.5em -0.5em 0.5em -0.5em;
-	border:solid 1px #0000;
-	border-top:none;
 	z-index:1;
 }
-#main_nav>.btn{
+#main_nav>div{
+	display:flex;
+	width:100%;
+}
+#main_nav>div>.btn{
 	--txt:var(--gry_h);
 	--txt_h:var(--gry_dd);
 	--brd:var(--gry);
@@ -154,13 +151,42 @@ a:hover{
 	border-radius:0;
 	margin:0;
 	border-left:solid 1px var(--brd);
+	border-bottom:solid 1px var(--brd);
 }
-#main_nav>.btn:hover{
-	z-index:1;
+#main_nav>div>.btn:hover{
+	border-color:var(--brd_h);
+}
+#main_nav>div>.btn:last-child{
+	border-right:solid 1px var(--brd);
+	border-radius:0 0 0.25rem 0;
 }
 #main_nav>#logo{
 	height:2em;
-	margin-right:auto;
+	border-bottom:solid 1px var(--brn_d);
+}
+#main_nav>div>#loginbtn{
+	--txt:var(--acc_h);
+	--txt_h:var(--acc_dd);
+	--brd:var(--acc);
+	--brd_h:var(--acc);
+	--bgc:var(--acc_d);
+	--bgc_h:var(--acc);
+	border-right:solid 1px var(--brd);
+	border-radius:0 0 0 0.25rem;
+}
+#main_nav>div>#navpad_left{
+	width:100%;
+	background:
+		linear-gradient(to right,var(--acc_d) 0%,var(--acc) 100%) padding-box,
+		linear-gradient(to right,var(--acc) 0%,var(--acc_d) 100%) border-box;
+	border-bottom:solid 1px #0000;
+}
+#main_nav>div>#navpad_right{
+	width:100%;
+	background:
+		linear-gradient(to right,var(--gry) 0%,var(--gry_d) 100%) padding-box,
+		linear-gradient(to right,var(--gry_d) 0%,var(--gry) 100%) border-box;
+	border-bottom:solid 1px #0000;
 }
 /* footer */
 footer{

@@ -17,7 +17,14 @@
 			'</head>';
 	}
 	function genNavBar(){
-		echo '<nav id="main_nav"><img id="logo" src="https://riedler.wien/favicon.svg"/>';
+		echo '<nav id="main_nav">'
+			.'<div>'
+				.'<a href="/login/" class="btn" id="loginbtn">Login</a>'
+				.'<div id="navpad_left"></div>'
+			.'</div>'
+			.'<img id="logo" src="https://riedler.wien/favicon.svg"/>'
+			.'<div>'
+				.'<div id="navpad_right"></div>';
 		$items = array(
 			"Coding"=>"/coding/",
 			"Music"=>"/music",
@@ -25,7 +32,7 @@
 		foreach($items as $txt=>$lnk){
 			echo "<a href='$lnk' class='btn'>$txt</a>";
 		}
-		echo '</nav>';
+		echo '</div></nav>';
 	}
 	function genFooter(){
 		echo '<div id="overlay"></div>';
