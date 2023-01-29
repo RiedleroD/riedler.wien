@@ -1,8 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.60, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: rwiencoding
--- ------------------------------------------------------
--- Server version	5.5.60-0+deb8u1
+
+use rwiencoding;
 
 --
 -- Table structure for table `Projects`
@@ -56,5 +54,3 @@ CREATE TABLE `Links` (
   FOREIGN KEY (`projectid`) REFERENCES `Projects` (`id`),
   FOREIGN KEY (`serviceid`) REFERENCES `Services` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dump completed on 2022-08-04  9:38:30

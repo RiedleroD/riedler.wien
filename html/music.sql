@@ -1,8 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.60, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: rwienmusic
--- ------------------------------------------------------
--- Server version	5.5.60-0+deb8u1
+
+use rwienmusic;
 
 --
 -- Table structure for table `Files`
@@ -133,11 +131,7 @@ CREATE TABLE `Links` (
 -- Table structure for table `Users`
 --
 
-CREATE TABLE `Users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE VIEW Users AS SELECT * FROM rwienusers.Users;
 
 --
 -- Table structure for table `requests`
@@ -153,5 +147,3 @@ CREATE TABLE `Requests` (
   KEY `userid` (`userid`),
   FOREIGN KEY (`userid`) REFERENCES `Users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dump completed on 2022-08-04  9:38:30
