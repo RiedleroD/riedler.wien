@@ -25,8 +25,6 @@
 }
 /* body */
 body{
-	background:linear-gradient(calc(90deg - var(--skewr)),var(--brn) 50%, var(--gry) 50%);
-	background-size:100vw 100vh;
 	--acc_hh:var(--brn_hh);
 	--acc_h:var(--brn_h);
 	--acc:var(--brn);
@@ -42,7 +40,7 @@ body{
 	flex-direction:column;
 	width:var(--content-width);
 	transform:translateX(-50%) skew(var(--skewr));
-	background-color:#000;
+	background-color:var(--acc_dd);
 	height:calc(100% - 2em);
 	overflow-y:auto;
 	overflow-x:clip;
