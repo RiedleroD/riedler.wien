@@ -14,9 +14,5 @@
 			$stmt->execute();
 			return $stmt;
 		}
-		public static function hash_passwd($passwd){
-			return hash('whirlpool',"riedler.wien".$passwd,true);
-		}
-		abstract public function get_services();
 	}
 ?>

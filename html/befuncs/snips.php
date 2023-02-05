@@ -1,4 +1,6 @@
 <?php
+	sessionSetup();
+	
 	function genUsual($title,$style,$custom){
 		echo
 		'<!DOCTYPE html>'.
@@ -17,14 +19,26 @@
 			'</head>';
 	}
 	function genNavBar(){
-		echo '<nav id="main_nav">'
-			.'<div>'
-				.'<a href="/login/" class="btn" id="loginbtn">Login</a>'
-				.'<div id="navpad_left"></div>'
-			.'</div>'
-			.'<img id="logo" src="https://riedler.wien/favicon.svg"/>'
-			.'<div>'
-				.'<div id="navpad_right"></div>';
+		?>
+		<nav id="main_nav">
+			<div>
+				<!--TODO: replace with account button -->
+				<a href="/login/" class="btn" id="loginbtn">
+				<?php
+					if($_SESSION['userid']==0){
+						echo 'Login';
+					}else{
+						echo 'Logout';
+					}
+				?>
+				</a>
+				<div id="navpad_left"></div>
+			</div>
+			<img id="logo" src="https://riedler.wien/favicon.svg"/>
+			<div>
+				<div id="navpad_right"></div>
+		<?php
+		
 		$items = array(
 			"Coding"=>"/coding/",
 			"Music"=>"/music",
@@ -37,6 +51,12 @@
 	function genFooter(){
 		echo '<div id="overlay"></div>';
 		echo '<footer>©2022 | Riedler &lt;<a href="mailto:admin@riedler.wien">admin@riedler.wien</a>&gt; | <a href="https://github.com/RiedleroD/riedler.wien">Contribute</a></footer>';
+	}
+	function sessionSetup(){
+		session_start();
+		if(!array_key_exists('userid',$_SESSION)){
+			$_SESSION['userid'] = 0;
+		}
 	}
 	#HeBi → Heterogenous & Bilateral
 	#meaning it's two-sided with different content in each side.

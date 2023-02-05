@@ -1,0 +1,42 @@
+#loginform{
+	position:fixed;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	display:grid;
+	grid-template-columns:auto auto;
+	gap:0.5em;
+	padding:1em 2em;
+	border-radius:0.5em;
+	background-color:var(--acc_d);
+	color:var(--acc_h);
+	width:fit-content;
+}
+#loginform>label{
+	grid-column:1;
+}
+#loginform>h2{
+	grid-area:1/1/2/3;
+	text-align:center;
+	margin-top:0.5em;
+	margin-bottom:0.75em;
+}
+#loginform>span{
+	grid-column:1/3;
+	text-align:center;
+	margin-top:0.5em;
+}
+#loginform>h2+span{
+	margin-top:-0.5em;
+	margin-bottom:0.5em;
+}
+#i_submit{
+	grid-column:1/3;
+	justify-self:center;
+	border:solid 1px var(--acc_h);
+	--bgc_h:var(--acc);
+	--txt_h:var(--acc_dd);
+}
+#i_submit:hover{
+	border:solid 1px var(--acc);
+}
