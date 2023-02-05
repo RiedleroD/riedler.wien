@@ -2,8 +2,8 @@
 	require_once("../befuncs/snips.php");
 	require_once("../befuncs/music.php");
 	require_once("../befuncs/db_music.php");
-	genUsual("Riedler's Music","@import '../style/music.css'",
-			 '<script async src="../jizz/musicplayer.js"></script><script async src="../jizz/musiclist.js"></script>');
+	genUsual("Riedler's Music",['/style/music.css'],
+			 '<script async src="/jizz/musicplayer.js"></script><script async src="/jizz/musiclist.js"></script>');
 	$db=new musicdb();
 ?>
 <body>

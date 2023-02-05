@@ -18,7 +18,7 @@
 		$db->logout();
 	}
 	
-	genUsual('Riedler\'s Login Site','@import "../style/login.css"','');
+	genUsual('Riedler\'s Login Site',['/style/login.css'],'');
 ?>
 <body>
 	<?php

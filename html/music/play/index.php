@@ -14,7 +14,7 @@
 		echo 'ID doesn\'t match any song: '.$_GET['id'];
 		exit;
 	}
-	genUsual('Riedler - '.$song['name'],'@import "../../style/play.css"','<script async src="../../jizz/musicplayer.js"></script>');
+	genUsual('Riedler - '.$song['name'],['/style/play.css'],'<script async src="/jizz/musicplayer.js"></script>');
 	$prevsong = $db->get_previous_song($song['date']);
 	$nextsong = $db->get_next_song($song['date']);
 	$prevsongwt = $db->get_previous_song_with_type($song['date'],$song['type']);

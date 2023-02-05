@@ -2,7 +2,7 @@
 	require_once("befuncs/snips.php");
 	require_once("befuncs/db_music.php");
 	require_once("befuncs/db_coding.php");
-	genUsual("Riedler","@import 'style/home.css'","");
+	genUsual("Riedler",['/style/home.css'],"");
 ?>
 <body>
 	<?php genNavBar(); ?>

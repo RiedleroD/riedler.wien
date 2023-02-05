@@ -2,7 +2,7 @@
 	require_once("../befuncs/snips.php");
 	require_once("../befuncs/coding.php");
 	require_once("../befuncs/db_coding.php");
-	genUsual('Riedler\'s Coding Projects','@import "../style/coding.css"','');
+	genUsual('Riedler\'s Coding Projects',['/style/coding.css'],'');
 	$db=new codingdb();
 ?>
 <body>

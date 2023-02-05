@@ -1,22 +1,25 @@
 <?php
 	sessionSetup();
 	
-	function genUsual($title,$style,$custom){
-		echo
-		'<!DOCTYPE html>'.
-		'<html lang="en">'.
-			'<head>'.
-				'<meta charset="UTF-8"/>'.
-				'<meta name="viewport" content="width=device-width, initial-scale=1.0">'.
-				"<title>$title</title>".
-				'<link rel="icon" type="image/svg" href="/favicon.svg"/>'.
-				'<style>'.
-					'@import "/style/default.css";'.
-					$style.
-				'</style>'.
-				'<script async src="/jizz/default.js"></script>'.
-				$custom.
-			'</head>';
+	function genUsual($title,$styles,$custom){
+		?>
+		<!DOCTYPE html>
+		<html lang="en">
+			<head>
+				<meta charset="UTF-8"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title><?= $title ?></title>
+				<link rel="icon" type="image/svg" href="/favicon.svg"/>
+				<?php
+					array_unshift($styles,"/style/default.css");
+					foreach($styles as $style){
+						echo "<link rel='stylesheet' href='$style'>";
+					}
+				?>
+				<script async src="/jizz/default.js"></script>
+				<?= $custom ?>
+			</head>
+		<?php
 	}
 	function genNavBar(){
 		?>
