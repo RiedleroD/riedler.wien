@@ -25,10 +25,12 @@
 		genNavBar();
 	?>
 	<form id="loginform" method="POST" action="/login/">
-		<?php if($_SESSION['userid']){ ?>
+		<?php if($_SESSION['userid']){
+			$user = $db->get_user_by_id($_SESSION['userid']);
+		?>
 		
 		<h2>LOGOUT</h2>
-		<span>Logged in as <?= $db->get_user_by_id($_SESSION['userid'])['name'] ?></span>
+		<span>Logged in as <?= $user['type']?> "<?= $user['name'] ?>"</span>
 		<input type="submit" value="Logout" class="btn" name="logout" id="i_submit"/>
 		
 		<?php }else{ ?>
