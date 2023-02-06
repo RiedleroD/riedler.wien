@@ -14,7 +14,11 @@
 		echo 'ID doesn\'t match any song: '.$_GET['id'];
 		exit;
 	}
-	genUsual('Riedler - '.$song['name'],['/style/play.css'],'<script async src="/jizz/musicplayer.js"></script>');
+	genUsual(
+		'Riedler - '.$song['name'],
+		['/style/play.css'],
+		'<script async src="/jizz/musicplayer.js"></script><script async src="/jizz/songlike.js"></script>'
+	);
 	$prevsong = $db->get_previous_song($song['date']);
 	$nextsong = $db->get_next_song($song['date']);
 	$prevsongwt = $db->get_previous_song_with_type($song['date'],$song['type']);
@@ -51,17 +55,40 @@
 	<div id="play_content">
 		<div id="play_info">
 			<?php
-				if($song['requester']){
-					echo "<span>Requester</span><span>${song['requester']}</span>";
+			if($song['requester']){
+				echo "<span>Requester</span><span>${song['requester']}</span>";
+			}
+			if($_SESSION['userid']!=0){
+				$like_attrs = 'songid='.$song['id'];
+				$dislike_attrs = $like_attrs;
+				$uservote = $db->get_single_vote($song['id'],$_SESSION['userid'])['type'];
+				if($uservote=='Like'){
+					$like_attrs.=' class="active"';
+				}else if($uservote=='Dislike'){
+					$dislike_attrs.=' class="active"';
 				}
-				echo "<span>Release Date</span><span>${song['fdate']}</span>";
-				echo "<span>Type</span><span class='type_${song['type']}'>${song['type']}</span>";
-				echo "<span>Status</span><span>${song['status']}</span>";
-				if($song['comment']){
-					echo "<div>${song['comment']}</div>";
-				}
+			}else{
+				$like_attrs = 'disabled';
+				$dislike_attrs = 'disabled';
+			}
 			?>
+			<span>Release Date</span><span><?= $song['fdate'] ?></span>
+			<span>Type</span><span class='type_<?= $song['type'] ?>'><?= $song['type'] ?></span>
+			<span>Status</span><span><?= $song['status'] ?></span>
+			<button id='like' <?= $like_attrs ?>>
+				<?= $song['likes'] ?>
+				<?= file_get_contents("../../resource/icons/like.svg") ?>
+			</button>
+			<button id='dislike' <?= $dislike_attrs ?>>
+				<?= file_get_contents("../../resource/icons/like.svg") ?>
+				<?= $song['dislikes'] ?>
+			</button>
 		</div>
+		<?php
+			if($song['comment']){
+				echo "<fieldset id='play_comment'>${song['comment']}</fieldset>";
+			}
+		?>
 		<fieldset id="play_files">
 			<?php
 				$files=$db->get_files_by_songid($song['id']);

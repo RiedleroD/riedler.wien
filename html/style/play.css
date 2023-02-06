@@ -25,35 +25,38 @@
 }
 /* container with the rest of the content, split up in three sections */
 #play_content{
-	display:flex;
-	flex-direction:row-reverse;
-	justify-content:end;
-	align-items:start;
+	display:grid;
+	grid-template-areas:
+		"l f i"
+		"l f c";
+	grid-template-columns:5fr 8fr 1fr;
+	grid-template-rows:auto 1fr;
+	gap:1px;
 }
 #play_content>fieldset{
-	margin-right:1px;
-	margin-top:0;
-	align-self:stretch;
+	margin:0;
 }
 /* info grid */
 #play_info{
+	grid-area:i;
 	display:grid;
 	grid-template-columns:auto auto;
 	border-radius:0 0.25em 0.25em 0.25em;
 	overflow:clip;
 	white-space:nowrap;
-	flex-grow:0;
+	background-color:var(--acc_d);
+	min-width:fit-content;
 }
-#play_info>:is(span,div){
+#play_info>:is(span,button){
 	padding:0.25em 0.5em;
 	background-color:var(--acc_d);
 	color:var(--acc_h);
 }
 #play_info>span:nth-child(2n+1){
 	text-align:right;
+	padding-left:0.75em;
 	background-color:var(--acc);
 	color:var(--acc_dd);
-	padding-left:0.75em;
 }
 #play_info>span:nth-child(2n){
 	border-left:solid 1px var(--acc_dd);
@@ -65,35 +68,80 @@
 #play_info>span:nth-of-type(2){
 	padding-top:0.33em;
 }
+#play_info>span:last-of-type,
 #play_info>span:nth-last-of-type(2){
 	padding-bottom:0.33em;
+	border-bottom:solid 1px var(--acc_dd);
 }
-#play_info>span:last-of-type{
-	padding-bottom:0.33em;
+/* like/dislike buttons inside infogrid */
+#like,
+#dislike{
+	display:flex;
+	align-items:center;
+	border:none;
+	background-color:#0000;
+	color:var(--acc);
+	font-weight:bold;
+	font-family:inherit;
+	cursor:pointer;
 }
-#play_info>div{/*comment*/
-	border-top:solid 1px var(--acc_dd);
-	grid-column:1/3;
+#like>svg,
+#dislike>svg{
+	display:block;
+	width:1.2em;
+	height:1.2em;
+}
+#like{
+	justify-content:end;
+	justify-self:end;
+	padding-left:0.75em;
+}
+#dislike{
+	justify-self:start;
+}
+#like>svg{
+	margin-left:0.75em;
+}
+#dislike>svg{
+	margin-right:0.75em;
+	transform:rotate(180deg);
+}
+#like path,
+#dislike path{
+	fill:none;
+	stroke:var(--acc_h);
+	stroke-width:1px;
+}
+#like.active path,
+#dislike.active path,
+#like[disabled] path,
+#dislike[disabled] path{
+	fill:var(--acc_h);
+}
+/* comment section */
+fieldset#play_comment{
+	grid-area:c;
 	padding:0.5em 0.75em;
 	text-align:justify;
 	white-space:normal;
+	align-self:start;
 }
 /* column with links to external services which host the song */
 #play_links{
+	grid-area:l;
 	display:flex;
 	flex-direction:column;
 	align-items:start;
-	flex-grow:5;
 }
 #play_links>.btn{
 	margin-right:0.25em;
 }
 /* column with files and masterplayer */
 #play_files{
+	grid-area:f;
 	display:flex;
 	flex-direction:column;
 	align-items:start;
-	flex-grow:8;
 }
 #tracks{
 	display:grid;
@@ -125,8 +173,12 @@
 /* fixes for mobile mostly */
 @media (orientation: portrait) {
 	#play_content{
-		flex-direction:row;
-		flex-wrap:wrap;
+		grid-template-areas:
+		"i"
+		"f"
+		"l"
+		"c";
+		grid-template-columns:auto;
 	}
 	#play_content>fieldset{
 		margin-right:0;
@@ -138,16 +190,14 @@
 		margin-bottom:0.5em;
 		margin-right:0.25em;
 	}
-	#play_files{
-		flex-grow:1;
-	}
-	#play_links{
-		display:inline;
-	}
 }
 /* fixes for non-mobile mostly */
 @media (orientation: landscape) {
-	#play_info{
-		max-width:min(30em,50%);
+	#play_comment{
+		width:max-content;
+		max-width:30em;
+	}
+	fieldset#play_comment{
+		margin-top:0.5em;
 	}
 }

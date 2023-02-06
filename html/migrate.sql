@@ -41,3 +41,14 @@ update Users set type='Admin' where id=1; -- assuming admin is id=1, which is, y
 -- c6596a6864d75ba6529f6dcb9cc4b77d5045edea
 
 -- user 0 now HAS to be (0,'Nobody',null,'Placeholder')
+
+-- b0f41ea9245a4071624f61a9edc692e24cbacdc6
+
+CREATE TABLE `SongRatings` (
+  `songid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `type` enum('Like','Dislike') NOT NULL,
+  PRIMARY KEY (`songid`,`userid`),
+  FOREIGN KEY (`songid`) REFERENCES `Songs` (`id`),
+  FOREIGN KEY (`userid`) REFERENCES `rwienusers`.`Users` (`id`)
+);

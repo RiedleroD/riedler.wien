@@ -1,9 +1,15 @@
 <?php
 	require_once('db.php');
 	class musicdb extends db{
-		const SELECTSONG = 'SELECT s.id as id,s.name as name,s.type,status,r.name as requester,DATE_FORMAT(date,"%d.%m.%Y") as fdate,date,c.comment FROM Songs as s '.
-		'LEFT JOIN Users as r ON s.requesterid=r.id '.
-		'LEFT JOIN Comments as c ON c.songid=s.id';
+		//TODO: replace with sql view
+		const SELECTSONG =
+		 'SELECT s.id as id,s.name as name,s.type as type,status,r.name as requester,'
+		.'DATE_FORMAT(s.date,"%d.%m.%Y") as fdate,s.date as date,c.comment as comment,'
+		.'(SELECT COUNT(sr.userid) FROM SongRatings sr WHERE sr.type=\'Like\' AND sr.songid=s.id) as likes,'
+		.'(SELECT COUNT(sr.userid) FROM SongRatings sr WHERE sr.type=\'Dislike\' AND sr.songid=s.id) as dislikes '
+		.'FROM Songs as s '
+		.'LEFT JOIN Users as r ON s.requesterid=r.id '
+		.'LEFT JOIN Comments as c ON c.songid=s.id ';
 		public function __construct(){
 			$this->db = new PDO("mysql:host=localhost;dbname=rwienmusic","riedlerwien");
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -80,6 +86,21 @@
 			return $this->get_tpq(
 				'SELECT ft.id,ft.mime,ft.name FROM Files as f INNER JOIN Filetypes as ft ON f.filetypeid=ft.id where f.songid=?',
 				[$id],[PDO::PARAM_INT])->fetchAll();
+		}
+		public function set_vote($songid,$userid,$type){
+			$this->get_tpq(
+				'DELETE FROM SongRatings WHERE songid=? AND userid=?',
+				[$songid,$userid],[PDO::PARAM_INT,PDO::PARAM_INT]
+			);
+			$this->get_tpq(
+				'INSERT INTO SongRatings VALUES (?,?,?)',
+				[$songid,$userid,$type],[PDO::PARAM_INT,PDO::PARAM_INT,PDO::PARAM_STR]
+			);
+		}
+		public function get_single_vote($songid,$userid){
+			return $this->get_tpq(
+				'SELECT type FROM SongRatings WHERE songid=? AND userid=?',
+				[$songid,$userid],[PDO::PARAM_INT,PDO::PARAM_INT])->fetch();
 		}
 	}
 ?>

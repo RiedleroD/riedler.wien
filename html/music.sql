@@ -128,6 +128,19 @@ CREATE TABLE `Links` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Table structure for table `SongRatings`
+--
+
+CREATE TABLE `SongRatings` (
+  `songid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `type` enum('Like','Dislike') NOT NULL,
+  PRIMARY KEY (`songid`,`userid`),
+  FOREIGN KEY (`songid`) REFERENCES `Songs` (`id`),
+  FOREIGN KEY (`userid`) REFERENCES `rwienusers`.`Users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- View `Users`
 -- for php selects only
 --

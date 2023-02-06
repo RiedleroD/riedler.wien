@@ -27,6 +27,22 @@
 			http_response_code(400);
 			$err="not all parameters are defined";
 		}
+	}else if($_GET['c']=='votesong'){
+		if(array_key_exists('song',$_GET) && array_key_exists('type',$_GET)){
+			include('../../befuncs/snips.php');//for session control
+			if($_SESSION['userid']!=0){
+				include('../../befuncs/db_music.php');
+				$db=new musicdb();
+				$db->set_vote($_GET['song'],$_SESSION['userid'],$_GET['type']);
+				die();
+			}else{
+				http_response_code(403);
+				$err='user not logged in';
+			}
+		}else{
+			http_response_code(400);
+			$err="not all parameters are defined";
+		}
 	}
 ?>
 <!-- bare-minimum API documentation for curious minds -->
@@ -92,6 +108,22 @@
 				<td>ashtml</td>
 				<td>1|0</td>
 				<td>if the returned data should be the html code to be inserted into the main grid or json</td>
+			</tr>
+			<tr>
+				<td rowspan="3">votesong</td>
+				<td></td>
+				<td></td>
+				<td>Likes / Dislikes a song (requires the user to be logged in)</td>
+			</tr>
+			<tr>
+				<td>song</td>
+				<td>number</td>
+				<td>ID of the song to be liked</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>like|dislike</td>
+				<td>if the song should be liked or disliked</td>
 			</tr>
 		</table>
 		<?php if(isset($err)) echo "<span>Error: <b>$err</b></span>"; ?>
