@@ -110,7 +110,7 @@ CREATE TABLE `Songs` (
   `date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `requesterid` (`requesterid`),
-  FOREIGN KEY (`requesterid`) REFERENCES `Users` (`id`)
+  FOREIGN KEY (`requesterid`) REFERENCES `rwienusers`.`Users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -128,10 +128,11 @@ CREATE TABLE `Links` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `Users`
+-- View `Users`
+-- for php selects only
 --
 
-CREATE VIEW Users AS SELECT * FROM rwienusers.Users;
+CREATE VIEW `Users` AS SELECT * FROM `rwienusers`.`Users`;
 
 --
 -- Table structure for table `requests`
@@ -145,5 +146,5 @@ CREATE TABLE `Requests` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ytid` (`ytid`),
   KEY `userid` (`userid`),
-  FOREIGN KEY (`userid`) REFERENCES `Users` (`id`)
+  FOREIGN KEY (`userid`) REFERENCES `rwienusers`.`Users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

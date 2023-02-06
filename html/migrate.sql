@@ -26,6 +26,14 @@ SET foreign_key_checks = 0;
 DROP TABLE rwienmusic.Users;
 CREATE VIEW rwienmusic.Users AS SELECT * FROM rwienusers.Users;
 
+ALTER TABLE Songs DROP FOREIGN KEY `Songs_ibfk_1`;
+ALTER TABLE Songs DROP KEY `requesterid`;
+ALTER TABLE Songs ADD FOREIGN KEY (`requesterid`) REFERENCES `rwienusers`.`Users` (`id`);
+
+ALTER TABLE Requests DROP FOREIGN KEY `Requests_ibfk_1`;
+ALTER TABLE Requests DROP KEY `userid`;
+ALTER TABLE Requests ADD FOREIGN KEY (`userid`) REFERENCES `rwienusers`.`Users` (`id`);
+
 SET foreign_key_checks = 1;
 
 update Users set type='Admin' where id=1; -- assuming admin is id=1, which is, you know, logical.
