@@ -29,3 +29,7 @@ CREATE VIEW rwienmusic.Users AS SELECT * FROM rwienusers.Users;
 SET foreign_key_checks = 1;
 
 update Users set type='Admin' where id=1; -- assuming admin is id=1, which is, you know, logical.
+
+-- c6596a6864d75ba6529f6dcb9cc4b77d5045edea
+
+-- user 0 now HAS to be (0,'Nobody',null,'Placeholder')
