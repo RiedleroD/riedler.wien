@@ -1,7 +1,7 @@
 <?php
 	require_once('db.php');
 	class musicdb extends db{
-		const SELECTSONG = 'SELECT s.id as id,s.name as name,type,status,r.name as requester,DATE_FORMAT(date,"%d.%m.%Y") as fdate,date,c.comment FROM Songs as s '.
+		const SELECTSONG = 'SELECT s.id as id,s.name as name,s.type,status,r.name as requester,DATE_FORMAT(date,"%d.%m.%Y") as fdate,date,c.comment FROM Songs as s '.
 		'LEFT JOIN Users as r ON s.requesterid=r.id '.
 		'LEFT JOIN Comments as c ON c.songid=s.id';
 		public function __construct(){
@@ -17,13 +17,13 @@
 		public function get_songs($start,$max,$nooriginals=false,$norremixes=false,$nocommissions=false,$norrequests=false){
 			$notypes = '';
 			if($nooriginals)
-				$notypes.=' AND type!=\'Original\'';
+				$notypes.=' AND s.type!=\'Original\'';
 			if($norremixes)
-				$notypes.=' AND type!=\'RRemix\'';
+				$notypes.=' AND s.type!=\'RRemix\'';
 			if($nocommissions)
-				$notypes.=' AND type!=\'Commission\'';
+				$notypes.=' AND s.type!=\'Commission\'';
 			if($norrequests)
-				$notypes.=' AND type!=\'RRequested\'';
+				$notypes.=' AND s.type!=\'RRequested\'';
 			$stmt = $this->db->prepare($this::SELECTSONG.' WHERE s.date<:maxdate'.$notypes.' ORDER BY date DESC LIMIT :maxresults');
 			$stmt->bindparam(':maxdate',$start,PDO::PARAM_STR);
 			$stmt->bindparam(':maxresults',$max,PDO::PARAM_INT);//whoever made PDO are idiots
@@ -56,12 +56,12 @@
 		}
 		public function get_previous_song_with_type($date,$type){
 			return $this->get_pq(
-				$this::SELECTSONG.' WHERE date<? AND type=? ORDER BY date DESC LIMIT 1',
+				$this::SELECTSONG.' WHERE date<? AND s.type=? ORDER BY date DESC LIMIT 1',
 				[$date,$type])->fetch();
 		}
 		public function get_next_song_with_type($date,$type){
 			return $this->get_pq(
-				$this::SELECTSONG.' WHERE date>? AND type=? ORDER BY date ASC LIMIT 1',
+				$this::SELECTSONG.' WHERE date>? AND s.type=? ORDER BY date ASC LIMIT 1',
 				[$date,$type])->fetch();
 		}
 		public function get_filetype_by_id($id){
