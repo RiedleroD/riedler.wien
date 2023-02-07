@@ -114,6 +114,26 @@ CREATE TABLE `Songs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- View for better song data selection
+--
+
+CREATE VIEW `SongsWithData` AS
+  SELECT
+    `Songs`.`id` AS `id`,
+    `Songs`.`name` AS `name`,
+    `Songs`.`type` AS `type`,
+    `Songs`.`status` AS `status`,
+    `Users`.`name` AS `requester`,
+    DATE_FORMAT(`Songs`.`date`,"%d.%m.%Y") AS `fdate`,
+    `Songs`.`date` AS `date`,
+    `Comments`.`comment` AS `comment`,
+  (SELECT COUNT(`sr`.`userid`) FROM `SongRatings` `sr` WHERE `sr`.`type`='Like' AND `sr`.`songid`=`Songs`.`id`) AS `likes`,
+  (SELECT COUNT(`sr`.`userid`) FROM `SongRatings` `sr` WHERE `sr`.`type`='Dislike' AND `sr`.`songid`=`Songs`.`id`) AS `dislikes`
+  FROM `Songs`
+  LEFT JOIN `rwienusers`.`Users` AS `Users` ON `Songs`.`requesterid`=`Users`.`id`
+  LEFT JOIN `Comments` ON `Comments`.`songid`=`Songs`.`id`;
+
+--
 -- Table structure for table `Links`
 --
 

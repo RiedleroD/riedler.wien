@@ -1,15 +1,6 @@
 <?php
 	require_once('db.php');
 	class musicdb extends db{
-		//TODO: replace with sql view
-		const SELECTSONG =
-		 'SELECT s.id as id,s.name as name,s.type as type,status,r.name as requester,'
-		.'DATE_FORMAT(s.date,"%d.%m.%Y") as fdate,s.date as date,c.comment as comment,'
-		.'(SELECT COUNT(sr.userid) FROM SongRatings sr WHERE sr.type=\'Like\' AND sr.songid=s.id) as likes,'
-		.'(SELECT COUNT(sr.userid) FROM SongRatings sr WHERE sr.type=\'Dislike\' AND sr.songid=s.id) as dislikes '
-		.'FROM Songs as s '
-		.'LEFT JOIN Users as r ON s.requesterid=r.id '
-		.'LEFT JOIN Comments as c ON c.songid=s.id ';
 		public function __construct(){
 			$this->db = new PDO("mysql:host=localhost;dbname=rwienmusic","riedlerwien");
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -23,14 +14,14 @@
 		public function get_songs($start,$max,$nooriginals=false,$norremixes=false,$nocommissions=false,$norrequests=false){
 			$notypes = '';
 			if($nooriginals)
-				$notypes.=' AND s.type!=\'Original\'';
+				$notypes.=' AND type!=\'Original\'';
 			if($norremixes)
-				$notypes.=' AND s.type!=\'RRemix\'';
+				$notypes.=' AND type!=\'RRemix\'';
 			if($nocommissions)
-				$notypes.=' AND s.type!=\'Commission\'';
+				$notypes.=' AND type!=\'Commission\'';
 			if($norrequests)
-				$notypes.=' AND s.type!=\'RRequested\'';
-			$stmt = $this->db->prepare($this::SELECTSONG.' WHERE s.date<:maxdate'.$notypes.' ORDER BY date DESC LIMIT :maxresults');
+				$notypes.=' AND type!=\'RRequested\'';
+			$stmt = $this->db->prepare('SELECT * FROM SongsWithData WHERE date<:maxdate'.$notypes.' ORDER BY date DESC LIMIT :maxresults');
 			$stmt->bindparam(':maxdate',$start,PDO::PARAM_STR);
 			$stmt->bindparam(':maxresults',$max,PDO::PARAM_INT);//whoever made PDO are idiots
 			$stmt->execute();
@@ -47,27 +38,27 @@
 		}
 		public function get_song_by_id($id){
 			return $this->get_tpq(
-				$this::SELECTSONG.' WHERE s.id=?',
+				'SELECT * FROM SongsWithData WHERE id=?',
 				[$id],[PDO::PARAM_INT])->fetch();
 		}
 		public function get_previous_song($date){
 			return $this->get_pq(
-				$this::SELECTSONG.' WHERE date<? ORDER BY date DESC LIMIT 1',
+				'SELECT * FROM SongsWithData WHERE date<? ORDER BY date DESC LIMIT 1',
 				[$date])->fetch();
 		}
 		public function get_next_song($date){
 			return $this->get_pq(
-				$this::SELECTSONG.' WHERE date>? ORDER BY date ASC LIMIT 1',
+				'SELECT * FROM SongsWithData WHERE date>? ORDER BY date ASC LIMIT 1',
 				[$date])->fetch();
 		}
 		public function get_previous_song_with_type($date,$type){
 			return $this->get_pq(
-				$this::SELECTSONG.' WHERE date<? AND s.type=? ORDER BY date DESC LIMIT 1',
+				'SELECT * FROM SongsWithData WHERE date<? AND type=? ORDER BY date DESC LIMIT 1',
 				[$date,$type])->fetch();
 		}
 		public function get_next_song_with_type($date,$type){
 			return $this->get_pq(
-				$this::SELECTSONG.' WHERE date>? AND s.type=? ORDER BY date ASC LIMIT 1',
+				'SELECT * FROM SongsWithData WHERE date>? AND type=? ORDER BY date ASC LIMIT 1',
 				[$date,$type])->fetch();
 		}
 		public function get_filetype_by_id($id){
