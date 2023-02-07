@@ -21,10 +21,12 @@ CREATE TABLE rwienusers.Users(
 INSERT INTO rwienusers.Users (`id`,`name`,`passwd`)
 SELECT `id`,`name`,null FROM rwienmusic.Users;
 
+use rwienmusic;
+
 SET foreign_key_checks = 0;
 
-DROP TABLE rwienmusic.Users;
-CREATE VIEW rwienmusic.Users AS SELECT * FROM rwienusers.Users;
+DROP TABLE Users;
+CREATE VIEW Users AS SELECT * FROM Users;
 
 ALTER TABLE Songs DROP FOREIGN KEY `Songs_ibfk_1`;
 ALTER TABLE Songs DROP KEY `requesterid`;
@@ -44,6 +46,8 @@ update Users set type='Admin' where id=1; -- assuming admin is id=1, which is, y
 
 -- b0f41ea9245a4071624f61a9edc692e24cbacdc6
 
+use rwienmusic;
+
 CREATE TABLE `SongRatings` (
   `songid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
@@ -54,6 +58,8 @@ CREATE TABLE `SongRatings` (
 );
 
 -- cec08bac25138cc4994021f721b7f384d0c053e8
+
+use rwienmusic;
 
 CREATE VIEW `SongsWithData` AS
   SELECT
