@@ -1,11 +1,6 @@
 <?php
 	require_once('db.php');
 	class accountdb extends db{
-		public $db;
-		public function __construct(){
-			$this->db = new PDO("mysql:host=localhost;dbname=rwienusers","riedlerwien");
-			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		}
 		public function login($name,$passwd){
 			$user = $this->get_user_by_name($name);
 			if($user == null){
