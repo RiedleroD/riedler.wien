@@ -1,6 +1,10 @@
 <?php
 	abstract class db{
-		abstract public function __construct();
+		public $db;
+		public function __construct(){
+			$this->db = new PDO("mysql:host=localhost;dbname=rwien","riedlerwien");
+			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		}
 		public function get_pq($query,$args){
 			$stmt = $this->db->prepare($query);
 			$stmt->execute($args);
