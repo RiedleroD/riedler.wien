@@ -1,6 +1,8 @@
 <?php
 	sessionSetup();
 	
+	require_once('db_user.php');
+	
 	function genUsual($title,$styles,$custom){
 		?>
 		<!DOCTYPE html>
@@ -25,16 +27,21 @@
 		?>
 		<nav id="main_nav">
 			<div>
-				<!--TODO: replace with account button -->
-				<a href="/login/" class="btn" id="loginbtn">
 				<?php
+					//TODO: replace login btn with account btn when logged in
 					if($_SESSION['userid']==0){
-						echo 'Login';
+						echo '<a href="/login/" class="btn" id="loginbtn">Login</a>';
 					}else{
-						echo 'Logout';
+						echo '<a href="/login/" class="btn" id="loginbtn">Logout</a>';
+						
+						$udb = new accountdb();
+						$user = $udb->get_user_by_id($_SESSION['userid']);
+						
+						if($user['type']=='Admin'){
+							echo '<a href="/admin/" class="btn">Admin Tools</a>';
+						}
 					}
 				?>
-				</a>
 				<div id="navpad_left"></div>
 			</div>
 			<img id="logo" src="https://riedler.wien/favicon.svg"/>

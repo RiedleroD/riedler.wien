@@ -1,0 +1,7 @@
+#panelgrid{
+	display:grid;
+	grid-template-columns:auto auto;
+}
+#panelgrid>fieldset{
+	margin:2px;
+}
