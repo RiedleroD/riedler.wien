@@ -2,6 +2,6 @@
 	display:grid;
 	grid-template-columns:auto auto;
 }
-#panelgrid>fieldset{
-	margin:2px;
+#panelgrid>div:not(:last-child){
+	margin-right:2px;
 }

@@ -15,10 +15,25 @@
 	?>
 	
 	<div id="panelgrid">
+	<div>
 		<fieldset>
 			<legend><h3>Add New Track</h3></legend>
 			<b>TBD</b>
 		</fieldset>
+		<fieldset>
+			<legend><h3>Edit Track</h3></legend>
+			<b>TBD</b>
+		</fieldset>
+		<fieldset>
+			<legend><h3>Add New Project</h3></legend>
+			<b>TBD</b>
+		</fieldset>
+		<fieldset>
+			<legend><h3>Edit Project</h3></legend>
+			<b>TBD</b>
+		</fieldset>
+	</div>
+	<div>
 		<fieldset>
 			<legend><h3>Add New User</h3></legend>
 			<form method="POST" action="/api.php?c=createaccount">
@@ -35,22 +50,10 @@
 			</form>
 		</fieldset>
 		<fieldset>
-			<legend><h3>Edit Track</h3></legend>
-			<b>TBD</b>
-		</fieldset>
-		<fieldset>
 			<legend><h3>Remove User</h3></legend>
 			<b>TBD</b>
 		</fieldset>
-		<fieldset>
-			<legend><h3>Add New Project</h3></legend>
-			<b>TBD</b>
-		</fieldset>
-		<div></div><!-- placeholder -->
-		<fieldset>
-			<legend><h3>Edit Project</h3></legend>
-			<b>TBD</b>
-		</fieldset>
+	</div>
 	</div>
 	<?php genFooter(); ?>
 </body>
