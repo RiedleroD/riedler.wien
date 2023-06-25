@@ -27,7 +27,7 @@ function change_like(e){
 	let inactive = dis_likearr[type ^ 1];
 	
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", '/music/api/?c=votesong&song='+active.getAttribute('songid')+'&type='+dis_likearr_str[type],true);
+	xhr.open("GET", '/api.php?c=votesong&song='+active.getAttribute('songid')+'&type='+dis_likearr_str[type],true);
 	xhr.onload=function(){
 		if(xhr.status==200){
 			if(!active.classList.contains('active')){

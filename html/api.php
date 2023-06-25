@@ -4,8 +4,8 @@
 		$err="no command given";
 	}else if($_GET['c']=='moresongs'){
 		if(array_key_exists('startdate',$_GET) && array_key_exists('max_amount',$_GET) && array_key_exists('ashtml',$_GET)){
-			include("../../befuncs/db_music.php");
-			include("../../befuncs/music.php");
+			include("befuncs/db_music.php");
+			include("befuncs/music.php");
 			$db=new musicdb();
 			$data = $db->get_songs($_GET['startdate'],(int)$_GET['max_amount'],
 				array_key_exists('nooriginals',$_GET),
@@ -29,9 +29,9 @@
 		}
 	}else if($_GET['c']=='votesong'){
 		if(array_key_exists('song',$_GET) && array_key_exists('type',$_GET)){
-			include('../../befuncs/snips.php');//for session control
+			include('befuncs/snips.php');//for session control
 			if($_SESSION['userid']!=0){
-				include('../../befuncs/db_music.php');
+				include('befuncs/db_music.php');
 				$db=new musicdb();
 				$db->set_vote($_GET['song'],$_SESSION['userid'],$_GET['type']);
 				die();

@@ -13,7 +13,7 @@ document.getElementById("loadmore").firstElementChild.onclick=function(){
 	let loadmore=document.getElementById("loadmore");
 	let xhr = new XMLHttpRequest();
 	let lastdate = loadmore.dataset.lastdate.split('.').reverse().join("-");
-	xhr.open("GET", '/music/api?c=moresongs&startdate='+lastdate+'&max_amount='+amount+'&ashtml=1'+typebl,true);
+	xhr.open("GET", '/api.php?c=moresongs&startdate='+lastdate+'&max_amount='+amount+'&ashtml=1'+typebl,true);
 	xhr.onload=function(){
 		if(xhr.status == 200){
 			let grid=document.getElementById("tracks");
