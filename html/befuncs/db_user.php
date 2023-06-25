@@ -29,5 +29,19 @@
 				'SELECT name,passwd,type FROM Users WHERE id=?',
 				[$id],[PDO::PARAM_INT])->fetch();
 		}
+		public function add_user($name,$passwdhash,$type){
+			
+			do{
+				$id = rand(2,2^16);//assume minimum 16 bit integer (max. 66k users)
+				$exists = $this->get_tpq(
+					'SELECT id FROM Users WHERE id=?',
+					[$id],[PDO::PARAM_INT])->fetch();
+			}while($exists!==false);
+			
+			$this->get_tpq(
+				'INSERT INTO Users (id,name,passwd,type) VALUES (?,?,?,?)',
+				[$id,$name,$passwdhash,$type],
+				[PDO::PARAM_INT,PDO::PARAM_STR,PDO::PARAM_STR,PDO::PARAM_STR]);
+		}
 	}
 ?>
