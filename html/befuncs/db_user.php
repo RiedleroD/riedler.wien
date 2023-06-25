@@ -31,6 +31,13 @@
 		}
 		public function add_user($name,$passwdhash,$type){
 			
+			if(strlen($passwdhash)!=64)
+				throw new Exception("invalid password hash");
+			if(!in_array($type,array('Admin','User'),true))
+				throw new Exception("invalid type");
+			if($this->get_pq('SELECT id FROM Users WHERE name=?',[$name])->fetch())
+				throw new Exception("name already exists");
+			
 			do{
 				$id = rand(2,2**16);//assume minimum 16 bit integer (max. 66k users)
 				$exists = $this->get_tpq(

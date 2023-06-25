@@ -46,6 +46,23 @@
 			$err="not all parameters are defined";
 		}
 		break;
+	case 'createaccount':
+		if(array_key_exists('name',$_GET) && array_key_exists('passwd',$_GET) && array_key_exists('type',$_GET)){
+			require_once('befuncs/snips.php');//for session control
+			require_once('./befuncs/db_user.php');
+			$db=new accountdb();
+			$user = $db->get_user_by_id($_SESSION['userid']);
+			if($user['type']=='Admin'){
+				$db->add_user($_GET['name'],$_GET['passwd'],$_GET['type']);
+			}else{
+				http_response_code(403);
+				$err='insufficient permissions';
+			}
+		}else{
+			http_response_code(400);
+			$err="not all parameters are defined";
+		}
+		break;
 	default:
 		http_response_code(400);
 		$err="unknown command: {$_GET['c']}";
@@ -130,6 +147,27 @@
 				<td>type</td>
 				<td>like|dislike</td>
 				<td>if the song should be liked or disliked</td>
+			</tr>
+			<tr>
+				<td rowspan="4">createaccount</td>
+				<td></td>
+				<td></td>
+				<td>Creates a new user account (requires the user to be an admin)</td>
+			</tr>
+			<tr>
+				<td>name</td>
+				<td>string(32)</td>
+				<td>a name for the user</td>
+			</tr>
+			<tr>
+				<td>passwd</td>
+				<td>string(64)</td>
+				<td>sha-256 hash of the user's password</td>
+			</tr>
+			<tr>
+				<td>type</td>
+				<td>any of (<code>Administrator</code>, <code>User</code>)</td>
+				<td>the role of the user</td>
 			</tr>
 		</table>
 		<?php if(isset($err)) echo "<span>Error: <b>$err</b></span>"; ?>
