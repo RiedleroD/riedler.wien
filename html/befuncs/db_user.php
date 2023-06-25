@@ -32,7 +32,7 @@
 		public function add_user($name,$passwdhash,$type){
 			
 			do{
-				$id = rand(2,2^16);//assume minimum 16 bit integer (max. 66k users)
+				$id = rand(2,2**16);//assume minimum 16 bit integer (max. 66k users)
 				$exists = $this->get_tpq(
 					'SELECT id FROM Users WHERE id=?',
 					[$id],[PDO::PARAM_INT])->fetch();
