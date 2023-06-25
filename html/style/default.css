@@ -172,15 +172,19 @@ a:hover{
 	height:2em;
 	border-bottom:solid 1px var(--brn_d);
 }
-#main_nav>div>#loginbtn{
+#main_nav>div:first-child>.btn{
 	--txt:var(--acc_h);
 	--txt_h:var(--acc_dd);
 	--brd:var(--acc);
 	--brd_h:var(--acc);
 	--bgc:var(--acc_d);
 	--bgc_h:var(--acc);
-	border-right:solid 1px var(--brd);
+}
+#main_nav>div:first-child>.btn:first-of-type{
 	border-radius:0 0 0 0.25rem;
+}
+#main_nav>div:first-child>.btn:last-of-type{
+	border-right:solid 1px var(--brd);
 }
 #main_nav>div>#navpad_left{
 	width:100%;
@@ -257,6 +261,7 @@ footer{
 	line-height:2em;
 	border-radius:0.25em;
 	user-select:none;
+	white-space:nowrap;
 }
 a.btn{
 	cursor:pointer;
