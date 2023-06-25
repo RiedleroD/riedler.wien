@@ -47,13 +47,13 @@
 		}
 		break;
 	case 'createaccount':
-		if(array_key_exists('name',$_GET) && array_key_exists('passwd',$_GET) && array_key_exists('type',$_GET)){
+		if(array_key_exists('name',$_POST) && array_key_exists('passwd',$_POST) && array_key_exists('type',$_POST)){
 			require_once('befuncs/snips.php');//for session control
 			require_once('./befuncs/db_user.php');
 			$db=new accountdb();
 			$user = $db->get_user_by_id($_SESSION['userid']);
 			if($user['type']=='Admin'){
-				$db->add_user($_GET['name'],$_GET['passwd'],$_GET['type']);
+				$db->add_user($_POST['name'],$_POST['passwd'],$_POST['type']);
 			}else{
 				http_response_code(403);
 				$err='insufficient permissions';
@@ -87,12 +87,14 @@
 		<table border="1">
 			<tr>
 				<th>Command</th>
+				<th>Protocol</th>
 				<th>Parameter</th>
 				<th>in/out Format</th>
 				<th>Explanation</th>
 			</tr>
 			<tr>
 				<td rowspan="8">moresongs</td>
+				<th rowspan="8">GET</th>
 				<td></td>
 				<td></td>
 				<td>Returns a list of Songs</td>
@@ -134,6 +136,7 @@
 			</tr>
 			<tr>
 				<td rowspan="3">votesong</td>
+				<th rowspan="3">GET</th>
 				<td></td>
 				<td></td>
 				<td>Likes / Dislikes a song (requires the user to be logged in)</td>
@@ -150,6 +153,7 @@
 			</tr>
 			<tr>
 				<td rowspan="4">createaccount</td>
+				<th rowspan="4">POST</th>
 				<td></td>
 				<td></td>
 				<td>Creates a new user account (requires the user to be an admin)</td>
