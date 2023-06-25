@@ -2,7 +2,8 @@
 	if(!array_key_exists('c',$_GET)){
 		http_response_code(400);
 		$err="no command given";
-	}else if($_GET['c']=='moresongs'){
+	}else switch($_GET['c']){
+	case 'moresongs':
 		if(array_key_exists('startdate',$_GET) && array_key_exists('max_amount',$_GET) && array_key_exists('ashtml',$_GET)){
 			include("befuncs/db_music.php");
 			include("befuncs/music.php");
@@ -27,7 +28,8 @@
 			http_response_code(400);
 			$err="not all parameters are defined";
 		}
-	}else if($_GET['c']=='votesong'){
+		break;
+	case 'votesong':
 		if(array_key_exists('song',$_GET) && array_key_exists('type',$_GET)){
 			include('befuncs/snips.php');//for session control
 			if($_SESSION['userid']!=0){
@@ -43,6 +45,10 @@
 			http_response_code(400);
 			$err="not all parameters are defined";
 		}
+		break;
+	default:
+		http_response_code(400);
+		$err="unknown command: {$_GET['c']}";
 	}
 ?>
 <!-- bare-minimum API documentation for curious minds -->
