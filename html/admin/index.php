@@ -21,7 +21,18 @@
 		</fieldset>
 		<fieldset>
 			<legend><h3>Add New User</h3></legend>
-			<b>TBD</b>
+			<form method="POST" action="/api.php?c=createaccount">
+				<input class="input__text" type="text" placeholder="Username" name="name"/>
+				<input class="input__text" type="text" placeholder="Hash of Password" name="passwd"/>
+				<select class="input__select" required name="type">
+					<option hidden selected value=""></option>
+					<option>Admin</option>
+					<option>User</option>
+				</select>
+				<br/>
+				<br/>
+				<input class="btn" type="submit"/>
+			</form>
 		</fieldset>
 		<fieldset>
 			<legend><h3>Edit Track</h3></legend>

@@ -243,6 +243,34 @@ footer{
 	color:var(--acc_h);
 	background-color:var(--acc_d);
 }
+/* select input */
+.input__select{
+	display:inline-block;
+	height:1.2em;
+	--txt:var(--acc_h);
+	--txt_f:var(--acc_dd);
+	--bgc:var(--acc_d);
+	--bgc_f:var(--acc);
+	--brd:var(--acc_h);
+	--brd_f:var(--acc);
+	border:solid 1px var(--brd);
+	color:var(--txt);
+	background-color:var(--bgc);
+	text-decoration:none;
+	padding:0.3em 0.6em;
+	border-radius:0.25em;
+	/*goddamn browser styles*/
+	font-family:inherit;
+	font-size:inherit;
+	box-sizing:content-box;
+}
+.input__select:focus{
+	outline:none;
+	box-shadow:none;
+	color:var(--txt_f);
+	background-color:var(--bgc_f);
+	border-color:var(--brd_f);
+}
 /* buttons */
 .btn{
 	display:inline-flex;
@@ -275,12 +303,18 @@ input[type="submit"].btn{
 }
 input[type="submit"].btn{
 	font-weight:bold;
+	border:solid 1px var(--acc_h);
+	--bgc_h:var(--acc);
+	--txt_h:var(--acc_dd);
 }
 a.btn:hover,
 button.btn:hover,
 input[type="submit"].btn:hover{
 	color:var(--txt_h);
 	background-color:var(--bgc_h);
+}
+input[type="submit"].btn:hover{
+	border:solid 1px var(--acc);
 }
 /* play buttons for masterplayer */
 .btn.play,
