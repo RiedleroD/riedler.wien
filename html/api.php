@@ -1,72 +1,142 @@
 <?php
-	if(!array_key_exists('c',$_GET)){
-		http_response_code(400);
-		$err="no command given";
-	}else switch($_GET['c']){
-	case 'moresongs':
-		if(array_key_exists('startdate',$_GET) && array_key_exists('max_amount',$_GET) && array_key_exists('ashtml',$_GET)){
-			include("befuncs/db_music.php");
-			include("befuncs/music.php");
+
+$err = null; // such logging. much debug
+
+class APICommand{
+	public string $protocol;
+	public Closure $callback;
+	public array $docs;
+	public function __construct(string $protocol,array $docs,callable $callback){
+		$this->protocol = $protocol;
+		$this->callback = $callback;
+		$this->docs = $docs;
+	}
+}
+
+define('commandlist', [
+	'moresongs' =>
+	new APICommand(
+		'GET',
+		[
+		'Returns a list of Songs',
+		['The oldest disallowed date for the returned songs','YYYY-MM-DD'],
+		'The maximum amount of songs that should be returned',
+		'whether to omit originals from results',
+		'whether to omit rremixes from results',
+		'whether to omit commissions from results',
+		'whether to omit commissions from results'
+		],
+		static function(
+			string $startdate,
+			int $max_amount,
+			bool $nooriginals=false,
+			bool $noremixes=false,
+			bool $nocommissions=false,
+			bool $norrequests=false)
+		{
+			require_once("befuncs/db_music.php");
+			require_once("befuncs/music.php");
+			
 			$db=new musicdb();
-			$data = $db->get_songs($_GET['startdate'],(int)$_GET['max_amount'],
-				array_key_exists('nooriginals',$_GET),
-				array_key_exists('norremixes',$_GET),
-				array_key_exists('nocommissions',$_GET),
-				array_key_exists('norrequests',$_GET));
-			if($_GET['ashtml']=='0'){
-				http_response_code(501);
-				echo 'json output support has been removed temporarily';
-				die();
-			}else if($_GET['ashtml']=='1'){
-				echo_html_from_songlist($data);
-				die();
-			}else{
-				http_response_code(400);
-				$err="invalid value for ashtml: ".$_GET['ashtml'];
-			}
-		}else{
-			http_response_code(400);
-			$err="not all parameters are defined";
+			$data = $db->get_songs($startdate,$max_amount,$nooriginals,$noremixes,$nocommissions,$norrequests);
+			echo_html_from_songlist($data);
 		}
-		break;
-	case 'votesong':
-		if(array_key_exists('song',$_GET) && array_key_exists('type',$_GET)){
-			include('befuncs/snips.php');//for session control
+	),
+	'votesong' =>
+	new APICommand(
+		'GET',
+		[
+		'Likes / Dislikes a song (requires the user to be logged in)',
+		'ID of the song to be liked',
+		['if the song should be liked or disliked','like | dislike']
+		],
+		static function(int $song,string $type){
+			require_once('befuncs/snips.php');//for session control
+			
 			if($_SESSION['userid']!=0){
-				include('befuncs/db_music.php');
+				require_once('befuncs/db_music.php');
 				$db=new musicdb();
-				$db->set_vote($_GET['song'],$_SESSION['userid'],$_GET['type']);
-				die();
+				$db->set_vote($song,$_SESSION['userid'],$type);
 			}else{
-				http_response_code(403);
-				$err='user not logged in';
+				return [403,'user not logged in'];
 			}
-		}else{
-			http_response_code(400);
-			$err="not all parameters are defined";
 		}
-		break;
-	case 'createaccount':
-		if(array_key_exists('name',$_POST) && array_key_exists('passwd',$_POST) && array_key_exists('type',$_POST)){
+	),
+	'createaccount' =>
+	new APICommand(
+		'POST',
+		[
+		'Creates a new user account (requires the user to be an admin)',
+		['a name for the user','string(32)'],
+		['sha-256 hash of the user\'s password','string(64)'],
+		['the role of the user','Administrator | User']
+		],
+		static function(string $name,string $passwd,string $type){
 			require_once('befuncs/snips.php');//for session control
 			require_once('./befuncs/db_user.php');
+			
 			$db=new accountdb();
 			$user = $db->get_user_by_id($_SESSION['userid']);
 			if($user['type']=='Admin'){
-				$db->add_user($_POST['name'],$_POST['passwd'],$_POST['type']);
+				$db->add_user($name,$passwd,$type);
 			}else{
-				http_response_code(403);
-				$err='insufficient permissions';
+				return [403,'insufficient permissions'];
 			}
-		}else{
-			http_response_code(400);
-			$err="not all parameters are defined";
 		}
-		break;
-	default:
-		http_response_code(400);
-		$err="unknown command: {$_GET['c']}";
+	)
+]);
+
+if(!array_key_exists('c',$_GET)){
+	http_response_code(400);
+	$err='no command given';
+}else if(!array_key_exists($_GET['c'],commandlist)){
+	http_response_code(400);
+	$err='unknown command: '.$_GET['c'];
+}else{
+	$cmd = commandlist[$_GET['c']];
+	$map = ['POST'=>$_POST,'GET'=>$_GET][$cmd->protocol];
+	$reflection = new ReflectionFunction($cmd->callback);
+	$params = [];
+	
+	foreach($reflection->getParameters() as $param){
+		if(array_key_exists($param->name,$map)){
+			$val = $map[$param->name];
+			$type = $param->getType();
+			if($type->allowsNull() && $val=='null'){
+				$val = null;
+			}else switch($type->getName()){
+				case 'string':
+					break;
+				case 'bool':
+					if($val === 'true'){
+						$val = true;
+					}else if($val === 'false'){
+						$val = false;
+					}else{
+						$err = "parameter {$param->name} isn't a boolean ({$val})";
+						goto err_goto;
+					}
+					break;
+				case 'int':
+					if(!ctype_digit($val)){
+						$err = "parameter {$param->name} is not an integer ({$val})";
+						goto err_goto;
+					}
+					$val = (int)$val;
+					break;
+			};
+			
+			$params[$param->name] = $val;
+		}else if(!$param->isOptional()){
+			$err="parameter {$param->name} is missing";
+			goto err_goto;
+		}
 	}
+	call_user_func_array($cmd->callback,$params);
+}
+err_goto:
+if($err === null)
+	die();
 ?>
 <!-- bare-minimum API documentation for curious minds -->
 <!DOCTYPE html>
@@ -92,87 +162,40 @@
 				<th>in/out Format</th>
 				<th>Explanation</th>
 			</tr>
-			<tr>
-				<td rowspan="8">moresongs</td>
-				<th rowspan="8">GET</th>
-				<td></td>
-				<td></td>
-				<td>Returns a list of Songs</td>
-			</tr>
-			<tr>
-				<td>startdate</td>
-				<td>YYYY-MM-DD</td>
-				<td>The oldest disallowed date for the returned songs</td>
-			</tr>
-			<tr>
-				<td>max_amount</td>
-				<td>number</td>
-				<td>The maximum amount of songs that should be returned</td>
-			</tr>
-			<tr>
-				<td>nooriginals</td>
-				<td></td>
-				<td>If defined, originals are ommitted from results</td>
-			</tr>
-			<tr>
-				<td>norremixes</td>
-				<td></td>
-				<td>If defined, rremixes are ommitted from results</td>
-			</tr>
-			<tr>
-				<td>nocommissions</td>
-				<td></td>
-				<td>If defined, commissions are ommitted from results</td>
-			</tr>
-			<tr>
-				<td>norrequests</td>
-				<td></td>
-				<td>If defined, rrequests are ommitted from results</td>
-			</tr>
-			<tr>
-				<td>ashtml</td>
-				<td>1|0</td>
-				<td>if the returned data should be the html code to be inserted into the main grid or json</td>
-			</tr>
-			<tr>
-				<td rowspan="3">votesong</td>
-				<th rowspan="3">GET</th>
-				<td></td>
-				<td></td>
-				<td>Likes / Dislikes a song (requires the user to be logged in)</td>
-			</tr>
-			<tr>
-				<td>song</td>
-				<td>number</td>
-				<td>ID of the song to be liked</td>
-			</tr>
-			<tr>
-				<td>type</td>
-				<td>like|dislike</td>
-				<td>if the song should be liked or disliked</td>
-			</tr>
-			<tr>
-				<td rowspan="4">createaccount</td>
-				<th rowspan="4">POST</th>
-				<td></td>
-				<td></td>
-				<td>Creates a new user account (requires the user to be an admin)</td>
-			</tr>
-			<tr>
-				<td>name</td>
-				<td>string(32)</td>
-				<td>a name for the user</td>
-			</tr>
-			<tr>
-				<td>passwd</td>
-				<td>string(64)</td>
-				<td>sha-256 hash of the user's password</td>
-			</tr>
-			<tr>
-				<td>type</td>
-				<td>any of (<code>Administrator</code>, <code>User</code>)</td>
-				<td>the role of the user</td>
-			</tr>
+			<?php
+				foreach(commandlist as $name=>$cmd){
+					$reflection = new ReflectionFunction($cmd->callback);
+					$args = $reflection->getParameters();
+					$nargs = $reflection->getNumberOfParameters();
+					$rowspan = $nargs +1;
+					echo "<tr><td rowspan=\"{$rowspan}\">{$name}</td><td rowspan=\"{$rowspan}\">{$cmd->protocol}</td><td></td><td></td><td>{$cmd->docs[0]}</td></tr>";
+					$i = 1;
+					foreach($args as $param){
+						$doc = $cmd->docs[$i];
+						if(is_array($doc)){
+							$paramname = $doc[0];
+							$paramtype = $doc[1];
+						}else{
+							$paramname = $doc;
+							switch($param->getType()->getName()){
+								case 'string':
+									$paramtype = '';
+									break;
+								case 'bool':
+									$paramtype = 'true | false';
+									break;
+								case 'int':
+									$paramtype = 'number';
+									break;
+								default:
+									$paramtype = 'unknown';
+							}
+						}
+						echo "<tr><td>{$param->name}</td><td>{$paramtype}</td><td>{$paramname}</td></tr>";
+						$i++;
+					}
+				}
+			?>
 		</table>
 		<?php if(isset($err)) echo "<span>Error: <b>$err</b></span>"; ?>
 	</body>

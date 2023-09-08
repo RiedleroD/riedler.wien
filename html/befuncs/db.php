@@ -2,7 +2,7 @@
 	abstract class db{
 		public $db;
 		public function __construct(){
-			$this->db = new PDO("mysql:host=localhost;dbname=rwien","riedlerwien");
+			$this->db = new PDO("mysql:host=localhost;dbname=rwien;charset=utf8mb4","riedlerwien");
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		public function get_pq($query,$args){
