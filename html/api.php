@@ -19,6 +19,15 @@ class APICommand{
 	}
 }
 
+enum UserRole {
+	case User;
+	case Admin;
+}
+enum DisLike {
+	case like;
+	case dislike;
+}
+
 define('commandlist', [
 	'moresongs' =>
 	new APICommand(
@@ -54,12 +63,12 @@ define('commandlist', [
 		[
 		'Likes / Dislikes a song',
 		'ID of the song to be liked',
-		['if the song should be liked or disliked','like | dislike']
+		'if the song should be liked or disliked'
 		],
-		static function(int $song,string $type){
+		static function(int $song,DisLike $type){
 			require_once('befuncs/db_music.php');
 			$db=new musicdb();
-			$db->set_vote($song,$_SESSION['userid'],$type);
+			$db->set_vote($song,$_SESSION['userid'],$type->name);
 		}
 	),
 	'createaccount' =>
@@ -71,8 +80,8 @@ define('commandlist', [
 		['sha-256 hash of the user\'s password','string(64)'],
 		'the role of the user'
 		],
-		static function(string $name,string $passwd,string $type) use ($accountdb){
-			$accountdb->add_user($name,$passwd,$type);
+		static function(string $name,string $passwd,UserRole $type) use ($accountdb){
+			$accountdb->add_user($name,$passwd,$type->name);
 		}
 	)
 ]);
@@ -105,8 +114,15 @@ if(!array_key_exists('c',$_GET)){
 		if(array_key_exists($param->name,$map)){
 			$val = $map[$param->name];
 			$type = $param->getType();
+			$class = $param->getClass();
 			if($type->allowsNull() && $val=='null'){
 				$val = null;
+			}else if($class instanceof ReflectionEnum){
+				if($class->hasCase($val)){
+					$val = $class->getCase($val)->getValue();
+				}else{
+					$err = "{$val} is not a member of {$type->getName()}";
+				}
 			}else switch($type->getName()){
 				case 'string':
 					break;
@@ -127,6 +143,9 @@ if(!array_key_exists('c',$_GET)){
 					}
 					$val = (int)$val;
 					break;
+				default:
+					$err = 'unknown type: '.$type->getName();
+					goto err_goto;
 			};
 			
 			$params[$param->name] = $val;
@@ -184,7 +203,8 @@ if($err === null)
 							$paramtype = $doc[1];
 						}else{
 							$paramname = $doc;
-							switch($param->getType()->getName()){
+							$typename = $param->getType()->getName();
+							switch($typename){
 								case 'string':
 									$paramtype = '';
 									break;
@@ -195,7 +215,17 @@ if($err === null)
 									$paramtype = 'number';
 									break;
 								default:
-									$paramtype = 'unknown';
+									$class = $param->getClass();
+									if($class instanceof ReflectionEnum){
+										//we now know that $param is an enum and can act accordingly
+										$casenames = [];
+										foreach($class->getCases() as $case){
+											array_push($casenames,$case->getName());
+										}
+										$paramtype = join(" | ",$casenames);
+									}else{
+										$paramtype = 'unknown';
+									}
 							}
 						}
 						echo "<tr><td>{$param->name}</td><td>{$paramtype}</td><td>{$paramname}</td></tr>";
