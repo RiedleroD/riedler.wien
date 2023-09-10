@@ -88,7 +88,7 @@ if(!array_key_exists('c',$_GET)){
 		http_response_code(403);
 		goto err_goto;
 	}
-	if($cmd->privilege >= 2 && $db->get_user_by_id($_SESSION['userid'])['type'] !== 'Admin'){
+	if($cmd->privilege >= 2 && $accountdb->get_user_by_id($_SESSION['userid'])['type'] !== 'Admin'){
 		$err='user must be admin';
 		http_response_code(403);
 		goto err_goto;
