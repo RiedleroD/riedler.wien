@@ -109,5 +109,13 @@
 			
 			return $type ? constant("Vote::{$type[0]}") : null;
 		}
+		public function add_song(string $name,SongType $type,SongState $state,?int $requester,string $date){
+			$songid = $this->get_pq('SELECT id FROM Songs ORDER BY id DESC LIMIT 1',[])->fetch()[0]+1;
+			$this->get_tpq(
+				'INSERT INTO Songs VALUES (?,?,?,?,?,?)',
+				[$songid,$name,$type->name,$state->name,$requester,$date],
+				[PDO::PARAM_INT,PDO::PARAM_STR,PDO::PARAM_STR,PDO::PARAM_STR,PDO::PARAM_INT,PDO::PARAM_STR]
+			);
+		}
 	}
 ?>

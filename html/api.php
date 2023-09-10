@@ -72,6 +72,22 @@ define('commandlist', [
 			$accountdb->add_user($name,$passwd,$type);
 		}
 	),
+	'addsong' =>
+	new APICommand(
+		'GET',2,
+		[
+		'Adds a Song to the list',
+		['a name for the song','string(64)'],
+		'song type',
+		'song state',
+		'id of requester',
+		'release date of song'
+		],
+		static function(string $name,SongType $type,SongState $state,?int $requester,string $date){
+			$db=new musicdb();
+			$db->add_song($name,$type,$state,$requester,$date);
+		}
+	),
 ]);
 
 if(!array_key_exists('c',$_GET)){
