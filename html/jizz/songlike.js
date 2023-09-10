@@ -1,7 +1,7 @@
 const likeElement = document.getElementById("like");
 const dislikeElement = document.getElementById("dislike");
 const dis_likearr = [likeElement,dislikeElement];
-const dis_likearr_str = ["like","dislike"];
+const dis_likearr_str = ["Like","Dislike"];
 
 likeElement.addEventListener('click',change_like);
 dislikeElement.addEventListener('click',change_like);

@@ -1,5 +1,11 @@
 <?php
 	require_once('db.php');
+	
+	enum UserRole {
+		case User;
+		case Admin;
+	}
+	
 	class accountdb extends db{
 		public function login($name,$passwd){
 			$user = $this->get_user_by_name($name);
@@ -29,12 +35,10 @@
 				'SELECT name,passwd,type FROM Users WHERE id=?',
 				[$id],[PDO::PARAM_INT])->fetch();
 		}
-		public function add_user($name,$passwdhash,$type){
+		public function add_user(string $name,string $passwdhash,UserRole $role){
 			
 			if(strlen($passwdhash)!=64)
 				throw new Exception("invalid password hash");
-			if(!in_array($type,array('Admin','User'),true))
-				throw new Exception("invalid type");
 			if($this->get_pq('SELECT id FROM Users WHERE name=?',[$name])->fetch())
 				throw new Exception("name already exists");
 			
@@ -47,7 +51,7 @@
 			
 			$this->get_tpq(
 				'INSERT INTO Users (id,name,passwd,type) VALUES (?,?,?,?)',
-				[$id,$name,$passwdhash,$type],
+				[$id,$name,$passwdhash,$role->name],
 				[PDO::PARAM_INT,PDO::PARAM_STR,PDO::PARAM_STR,PDO::PARAM_STR]);
 		}
 	}

@@ -21,8 +21,8 @@
 	);
 	$prevsong = $db->get_previous_song($song['date']);
 	$nextsong = $db->get_next_song($song['date']);
-	$prevsongwt = $db->get_previous_song_with_type($song['date'],$song['type']);
-	$nextsongwt = $db->get_next_song_with_type($song['date'],$song['type']);
+	$prevsongwt = $db->get_previous_song_with_type($song['date'],constant('SongType::'.$song['type']));
+	$nextsongwt = $db->get_next_song_with_type($song['date'],constant('SongType::'.$song['type']));
 ?>
 <body>
 	<?php genNavBar(); ?>
@@ -61,10 +61,10 @@
 			if($_SESSION['userid']!=0){
 				$like_attrs = 'songid='.$song['id'];
 				$dislike_attrs = $like_attrs;
-				$uservote = $db->get_single_vote($song['id'],$_SESSION['userid'])['type'];
-				if($uservote=='Like'){
+				$uservote = $db->get_single_vote($song['id'],$_SESSION['userid']);
+				if($uservote === Vote::Like){
 					$like_attrs.=' class="active"';
-				}else if($uservote=='Dislike'){
+				}else if($uservote === Vote::Dislike){
 					$dislike_attrs.=' class="active"';
 				}
 			}else{

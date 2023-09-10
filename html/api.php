@@ -4,6 +4,7 @@ $err = null; // such logging. much debug
 
 require_once('./befuncs/snips.php');
 require_once('./befuncs/db_user.php');
+require_once("./befuncs/db_music.php");
 $accountdb=new accountdb();
 
 class APICommand{
@@ -17,15 +18,6 @@ class APICommand{
 		$this->docs = $docs;
 		$this->privilege = $privilege;
 	}
-}
-
-enum UserRole {
-	case User;
-	case Admin;
-}
-enum DisLike {
-	case like;
-	case dislike;
 }
 
 define('commandlist', [
@@ -49,9 +41,6 @@ define('commandlist', [
 			bool $nocommissions=false,
 			bool $norrequests=false)
 		{
-			require_once("befuncs/db_music.php");
-			require_once("befuncs/music.php");
-			
 			$db=new musicdb();
 			$data = $db->get_songs($startdate,$max_amount,$nooriginals,$noremixes,$nocommissions,$norrequests);
 			echo_html_from_songlist($data);
@@ -65,10 +54,9 @@ define('commandlist', [
 		'ID of the song to be liked',
 		'if the song should be liked or disliked'
 		],
-		static function(int $song,DisLike $type){
-			require_once('befuncs/db_music.php');
+		static function(int $song,Vote $type){
 			$db=new musicdb();
-			$db->set_vote($song,$_SESSION['userid'],$type->name);
+			$db->set_vote($song,$_SESSION['userid'],$type);
 		}
 	),
 	'createaccount' =>
@@ -81,9 +69,9 @@ define('commandlist', [
 		'the role of the user'
 		],
 		static function(string $name,string $passwd,UserRole $type) use ($accountdb){
-			$accountdb->add_user($name,$passwd,$type->name);
+			$accountdb->add_user($name,$passwd,$type);
 		}
-	)
+	),
 ]);
 
 if(!array_key_exists('c',$_GET)){

@@ -1,4 +1,22 @@
 <?php
+	enum SongType {
+		case Original;
+		case RRemix;
+		case Commission;
+		case RRequested;
+	}
+	enum SongState {
+		case Planned;
+		case Drafted;
+		case Finished;
+		case Uploaded;
+		case Removed;
+	}
+	enum Vote {
+		case Like;
+		case Dislike;
+	}
+	
 	require_once('db.php');
 	class musicdb extends db{
 		public function get_services(){
@@ -47,15 +65,15 @@
 				'SELECT * FROM SongsWithData WHERE date>? ORDER BY date ASC LIMIT 1',
 				[$date])->fetch();
 		}
-		public function get_previous_song_with_type($date,$type){
+		public function get_previous_song_with_type(string $date,SongType $type){
 			return $this->get_pq(
 				'SELECT * FROM SongsWithData WHERE date<? AND type=? ORDER BY date DESC LIMIT 1',
-				[$date,$type])->fetch();
+				[$date,$type->name])->fetch();
 		}
-		public function get_next_song_with_type($date,$type){
+		public function get_next_song_with_type(string $date,SongType $type){
 			return $this->get_pq(
 				'SELECT * FROM SongsWithData WHERE date>? AND type=? ORDER BY date ASC LIMIT 1',
-				[$date,$type])->fetch();
+				[$date,$type->name])->fetch();
 		}
 		public function get_filetype_by_id($id){
 			return $this->get_tpq(
@@ -74,20 +92,22 @@
 				'SELECT ft.id,ft.mime,ft.name FROM SongFiles as f INNER JOIN Filetypes as ft ON f.filetypeid=ft.id where f.songid=?',
 				[$id],[PDO::PARAM_INT])->fetchAll();
 		}
-		public function set_vote($songid,$userid,$type){
+		public function set_vote(int $songid,int $userid,Vote $type){
 			$this->get_tpq(
 				'DELETE FROM SongVotes WHERE songid=? AND userid=?',
 				[$songid,$userid],[PDO::PARAM_INT,PDO::PARAM_INT]
 			);
 			$this->get_tpq(
 				'INSERT INTO SongVotes VALUES (?,?,?)',
-				[$songid,$userid,$type],[PDO::PARAM_INT,PDO::PARAM_INT,PDO::PARAM_STR]
+				[$songid,$userid,$type->name],[PDO::PARAM_INT,PDO::PARAM_INT,PDO::PARAM_STR]
 			);
 		}
-		public function get_single_vote($songid,$userid){
-			return $this->get_tpq(
+		public function get_single_vote(int $songid,int $userid): ?Vote{
+			$type = $this->get_tpq(
 				'SELECT type FROM SongVotes WHERE songid=? AND userid=?',
 				[$songid,$userid],[PDO::PARAM_INT,PDO::PARAM_INT])->fetch();
+			
+			return $type ? constant("Vote::{$type[0]}") : null;
 		}
 	}
 ?>
