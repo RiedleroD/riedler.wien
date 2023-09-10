@@ -2,21 +2,27 @@
 
 $err = null; // such logging. much debug
 
+require_once('./befuncs/snips.php');
+require_once('./befuncs/db_user.php');
+$accountdb=new accountdb();
+
 class APICommand{
 	public string $protocol;
 	public Closure $callback;
 	public array $docs;
-	public function __construct(string $protocol,array $docs,callable $callback){
+	public int $privilege;
+	public function __construct(string $protocol,int $privilege,array $docs,callable $callback){
 		$this->protocol = $protocol;
 		$this->callback = $callback;
 		$this->docs = $docs;
+		$this->privilege = $privilege;
 	}
 }
 
 define('commandlist', [
 	'moresongs' =>
 	new APICommand(
-		'GET',
+		'GET',0,
 		[
 		'Returns a list of Songs',
 		['The oldest disallowed date for the returned songs','YYYY-MM-DD'],
@@ -44,44 +50,29 @@ define('commandlist', [
 	),
 	'votesong' =>
 	new APICommand(
-		'GET',
+		'GET',1,
 		[
-		'Likes / Dislikes a song (requires the user to be logged in)',
+		'Likes / Dislikes a song',
 		'ID of the song to be liked',
 		['if the song should be liked or disliked','like | dislike']
 		],
 		static function(int $song,string $type){
-			require_once('befuncs/snips.php');//for session control
-			
-			if($_SESSION['userid']!=0){
-				require_once('befuncs/db_music.php');
-				$db=new musicdb();
-				$db->set_vote($song,$_SESSION['userid'],$type);
-			}else{
-				return [403,'user not logged in'];
-			}
+			require_once('befuncs/db_music.php');
+			$db=new musicdb();
+			$db->set_vote($song,$_SESSION['userid'],$type);
 		}
 	),
 	'createaccount' =>
 	new APICommand(
-		'POST',
+		'POST',2,
 		[
-		'Creates a new user account (requires the user to be an admin)',
+		'Creates a new user account',
 		['a name for the user','string(32)'],
 		['sha-256 hash of the user\'s password','string(64)'],
-		['the role of the user','Administrator | User']
+		'the role of the user'
 		],
-		static function(string $name,string $passwd,string $type){
-			require_once('befuncs/snips.php');//for session control
-			require_once('./befuncs/db_user.php');
-			
-			$db=new accountdb();
-			$user = $db->get_user_by_id($_SESSION['userid']);
-			if($user['type']=='Admin'){
-				$db->add_user($name,$passwd,$type);
-			}else{
-				return [403,'insufficient permissions'];
-			}
+		static function(string $name,string $passwd,string $type) use ($accountdb){
+			$accountdb->add_user($name,$passwd,$type);
 		}
 	)
 ]);
@@ -94,6 +85,18 @@ if(!array_key_exists('c',$_GET)){
 	$err='unknown command: '.$_GET['c'];
 }else{
 	$cmd = commandlist[$_GET['c']];
+	
+	if($cmd->privilege >= 1 && $_SESSION['userid'] === 0){
+		$err='user must be logged in';
+		http_response_code(403);
+		goto err_goto;
+	}
+	if($cmd->privilege >= 2 && $db->get_user_by_id($_SESSION['userid'])['type'] !== 'Admin'){
+		$err='user must be admin';
+		http_response_code(403);
+		goto err_goto;
+	}
+	
 	$map = ['POST'=>$_POST,'GET'=>$_GET][$cmd->protocol];
 	$reflection = new ReflectionFunction($cmd->callback);
 	$params = [];
@@ -158,6 +161,7 @@ if($err === null)
 			<tr>
 				<th>Command</th>
 				<th>Protocol</th>
+				<th>Privilege</th>
 				<th>Parameter</th>
 				<th>in/out Format</th>
 				<th>Explanation</th>
@@ -168,7 +172,10 @@ if($err === null)
 					$args = $reflection->getParameters();
 					$nargs = $reflection->getNumberOfParameters();
 					$rowspan = $nargs +1;
-					echo "<tr><td rowspan=\"{$rowspan}\">{$name}</td><td rowspan=\"{$rowspan}\">{$cmd->protocol}</td><td></td><td></td><td>{$cmd->docs[0]}</td></tr>";
+					
+					$privilege = ['','User','Admin'][$cmd->privilege];
+					
+					echo "<tr><td rowspan=\"{$rowspan}\">{$name}</td><td rowspan=\"{$rowspan}\">{$cmd->protocol}</td><td rowspan=\"{$rowspan}\">{$privilege}</td><td colspan=\"2\"></td><td>{$cmd->docs[0]}</td></tr>";
 					$i = 1;
 					foreach($args as $param){
 						$doc = $cmd->docs[$i];
