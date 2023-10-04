@@ -1,3 +1,13 @@
+//rather than circumventing this check, consider getting a better browser :)
+{
+	let isChrome = !!window.chrome;
+	let isIOSChrome = winNav.userAgent.match("CriOS");
+
+	if (isChrome || isIOSChrome) {
+		window.location = "/unsupported.html";
+	}
+}
+
 document.addEventListener("click",function(event){
 	let anchor = event.target
 	while(anchor){
