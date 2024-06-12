@@ -45,7 +45,7 @@ body{
 	overflow-y:auto;
 	overflow-x:clip;
 }
-.slant :is(h1,h2,h3,h4,a){
+.slant :is(h1,h2,h3,h4,a,.unslant){
 	transform:skew(calc(-1 * var(--skewr)));
 }
 .slant>fieldset{

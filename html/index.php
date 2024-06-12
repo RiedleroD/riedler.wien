@@ -16,24 +16,14 @@
 			?>
 		</fieldset>
 		<fieldset>
-			<legend><h3>Music</h3></legend>
-			<?php
-				$db=new musicdb();
-				services_as_html($db->get_services());
-			?>
-		</fieldset>
-		<fieldset>
-			<legend><h3>Coding</h3></legend>
-			<?php
-				$db=new codingdb();
-				services_as_html($db->get_services());
-			?>
+			<legend><h3>Main Navigation</h3></legend>
+			<p class="unslant" style="margin-left:1em">See in the top right! The website will be redesigned later to make this less bad &gt;.&lt;</p>
 		</fieldset>
 		<fieldset>
 			<legend><h3>Social</h3></legend>
 			<?php
-				genHeBiLink(rwicon("mstdn"),"Mastodon","https://catcatnya.com/@Riedler");
-				genHeBiLink(rwicon("tg"),"Telegram","https://t.me/@RiedleroD");
+				genHeBiLink(rwicon("akko"),"Akkoma","https://donotsta.re/Riedler");
+				genHeBiLink(rwicon("mtrx"),"Matrix","https://matrix.to/#/@riedler:evilcyberhacker.net");
 			?>
 		</fieldset>
 		<fieldset>
