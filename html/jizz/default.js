@@ -1,5 +1,10 @@
 //rather than circumventing this check, consider getting a better browser :)
-{
+nochrome: {
+	let params = new URLSearchParams(window.location.search);
+	if (params.has('i_will_choose_a_better_browser_next_ti')) {
+		break nochrome;
+	}
+	
 	let isChrome = !!window.chrome;
 	let isIOSChrome = window.navigator.userAgent.match("CriOS");
 
