@@ -28,9 +28,15 @@
 		<nav id="main_nav">
 			<div>
 				<?php
+					$uri = array_key_exists('redirect_to',$_GET) ?
+                        $_GET['redirect_to'] :
+                        $_SERVER['REQUEST_URI'];
+					$params = http_build_query(array(
+						'redirect_to' => $uri,
+					));
 					//TODO: replace login btn with account btn when logged in
 					if($_SESSION['userid']==0){
-						echo '<a href="/login/" class="btn" id="loginbtn">Login</a>';
+						echo '<a href="/login/?' . $params . '" class="btn" id="loginbtn">Login</a>';
 					}else{
 						echo '<a href="/login/" class="btn" id="loginbtn">Logout</a>';
 						
