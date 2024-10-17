@@ -11,6 +11,9 @@
 		font-size:var(--content-width);
 	}
 }
+@media (prefers-reduced-motion) {
+    @keyframes load-in {}
+}
 /* body */
 body{
 	/*	color legend:

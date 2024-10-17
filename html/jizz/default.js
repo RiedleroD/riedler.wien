@@ -13,28 +13,30 @@ nochrome: {
 	}
 }
 
+const preload=document.createElement("link");
+preload.rel="preload";
+//not supported by some Chromium based browsers https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload#browser_compatibility
+//Firefox also warns "Preload of ... was ignored due to unknown “as” or “type” values, or non-matching “media” attribute."
+preload.as="document";
+
 document.addEventListener("click",function(event){
-	let anchor = event.target
-	while(anchor){
-		if(anchor.tagName=='A' && anchor.href){
-			event.preventDefault();
-			//preload next website while animation plays out
-			//(not working, but what the hell. I did it like in the MDN example. Not my fault.)
-			let preload=document.createElement("link");
-			preload.href=anchor.href;
-			preload.rel="preload";
-			preload.as="document";
-			document.head.appendChild(preload);
-			//reversing load-in animation
-			let overlay = document.getElementById("overlay");
-			overlay.getAnimations()[0].reverse();
-			//wait 500ms for animation to finish and then redirect
-			setTimeout(()=>{window.location.href=anchor.href},500);
-			return;
-		}
-		anchor=anchor.parentElement;//checking if parent contains a link
-	}
-},false);
+    let anchor = event.target
+    while(anchor) {
+        if (anchor.tagName == 'A' && anchor.href) {
+            const href=anchor.href;
+            event.preventDefault();
+            //preload next website while animation plays out
+            preload.href=href;
+            document.head.appendChild(preload);
+            //reversing load-in animation
+            const animation = document.getElementById("overlay").getAnimations()[0];
+            // wait for the animation to finish and then redirect
+            animation.addEventListener('finish', () => window.location.href = href);
+            animation.reverse();
+        }
+        anchor = anchor.parentElement;
+    }
+});
 
 window.addEventListener("focus",function(event){
 	let overlay = document.getElementById("overlay");
