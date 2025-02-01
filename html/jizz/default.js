@@ -1,7 +1,9 @@
 //rather than circumventing this check, consider getting a better browser :)
+let fuckchrome = false;
 nochrome: {
 	let params = new URLSearchParams(window.location.search);
-	if (params.has('i_will_choose_a_better_browser_next_ti')) {
+	if (params.has('i_will_choose_a_better_browser_next_time')) {
+		fuckchrome = true;
 		break nochrome;
 	}
 	
@@ -18,6 +20,13 @@ document.addEventListener("click",function(event){
 	while(anchor){
 		if(anchor.tagName=='A' && anchor.href){
 			event.preventDefault();
+			
+			if (fuckchrome) {
+				let decodedurl = new URL(anchor.href);
+				decodedurl.searchParams.set('i_will_choose_a_better_browser_next_time','');
+				anchor.href = decodedurl.toString();
+			}
+			
 			//preload next website while animation plays out
 			//(not working, but what the hell. I did it like in the MDN example. Not my fault.)
 			let preload=document.createElement("link");
