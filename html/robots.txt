@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /!/
+Disallow: /unsupported.html
+Disallow: /noise.php
+Host: riedler.wien
