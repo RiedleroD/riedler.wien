@@ -15,12 +15,16 @@ echo "don't forget to enable php error reporting in php.ini"
 
 SCRIPT
 
+# check for plugins
+required_plugins = ['vagrant-hostsupdater', 'vagrant-libvirt']
+plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
+if not plugins_to_install.empty?
+  abort "You need to install these vagrant plugins: " + plugins_to_install.to_s
+end
+
 Vagrant.configure("2") do |config|
-  #TODO: update to newer debian
   config.vm.box = "debian/bookworm64"
-  #NOTE: needs vagrant-hostsupdater plugin
   config.vm.hostname = "riedler.local"
-  # presumably also works with different providers
   config.vm.provider :libvirt do |libvirt|
     libvirt.cpus=4
     libvirt.memory=2048
