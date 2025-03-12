@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+	<linearGradient id="g" gradientTransform="rotate(100)">
+		<stop stop-color="#06c9bf" offset="5%"/>
+		<stop stop-color="#03bc6f" offset="65%"/>
+	</linearGradient>
+	<path fill="#161300" d="M0 0v480h480v-480z"/>
+	<path fill="#ffdc00" d="M346.4 24.9a240 240 0 1022 12.4c-.8-11.3-2.9-22.4-6.4-33.3-5.2 7.1-10.4 14.1-15.6 20.9z"/>
+	<path fill="url(#g)" d="M362 4c-64.7 28.5-123.9 50-201.1 45-10.1-.7-18.1 8.3-9.9 23L259.5 266.2A112.73 91.67 0 10334.6 313.8l-94.7-163.9c57.4-42.1 109.3-86.4 122-146z"/>
+</svg>

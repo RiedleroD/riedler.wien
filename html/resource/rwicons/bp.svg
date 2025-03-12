@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480">
+	<linearGradient id="lg" x1="9" y1="349" x2="355" y2="253" gradientUnits="userSpaceOnUse">
+		<stop offset="0" stop-color="#310aff"/>
+		<stop offset="1" stop-color="#2fffba"/>
+	</linearGradient>
+	<rect width="480" height="480"/>
+	<path fill="url(#lg)" d="M157 0l-9 54h96a65 40 71 0151 49a65 40 71 01-17 74a65 40 71 01-59-48a65 40 71 01-5-41h-72l-31 185h126a71 45 71 0157 54a71 45 71 01-19 82a71 45 71 01-66-52a71 45 71 01-6-45h-99l-29 168h127c86-1 166-63 179-137c8-47-13-91-56-115c43-24 71-61 78-101C415 63 363 7 285 0z"/>
+</svg>

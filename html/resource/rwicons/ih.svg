@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+	<path fill="#e92b2a" d="M0 0v480h480v-480z"/>
+	<path fill="#FFF" d="M53 300A1 1 0 01240 150 1 1 0 01427 300L287 428V335A1 1 0 00193 335v93zM240 183a1 1 0 000 73 1 1 0 000-73"/>
+	<g style="stroke:#e92b2a;fill:none;stroke-width:18;stroke-linecap:round">
+		<path stroke-dasharray="136.2" stroke-dashoffset="200" d="M240 146.5a4 3 0 000 150 4 3 0 000-150"/>
+		<path stroke-dasharray="200 260" stroke-dashoffset="347.5" d="M240 100a4 3 0 000 240 4 3 0 000-240"/>
+	</g>
+</svg>

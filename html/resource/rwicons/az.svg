@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+	<path d="M0 0v480h480v-480z"/>
+	<path fill="#ffb60a" d="M361 340a31 60 46 0142 44l10-9a31 60 46 00-43-45zM78 340a164 84 0 00325 0 181 80 0 01-325 0"/>
+	<text x="118" y="333" style="font-family:helvetica;font-size:440px;font-weight:bold;fill:#fff">a</text>
+</svg>

@@ -11,7 +11,11 @@
 				<meta charset="UTF-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<title><?= $title ?></title>
-				<link rel="icon" type="image/svg" href="/favicon.svg"/>
+				<link rel="icon" type="image/svg+xml" href="/resource/icons/favicon.svg" sizes="any"/>
+				<link rel="alternate icon" type="image/png" href="/resource/icons/favicon96x96.png" sizes="96x96"/>
+				<link rel="alternate icon" type="image/png" href="/resource/icons/favicon180x180.png" sizes="180x180"/>
+				<link rel="shortcut icon" type="image/x-icon" href="/resource/icons/favicon.ico" sizes="16x16"/>
+				<link rel="apple-touch-icon" type="image/png" href="/resource/icons/favicon180x180.png" sizes="180x180"/>
 				<?php
 					array_unshift($styles,"/style/default.css");
 					foreach($styles as $style){
@@ -44,7 +48,7 @@
 				?>
 				<div id="navpad_left"></div>
 			</div>
-			<img id="logo" src="https://riedler.wien/favicon.svg"/>
+			<img id="logo" src="/resource/icons/favicon.svg"/>
 			<div>
 				<div id="navpad_right"></div>
 		<?php

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+	<path fill="#000" d="M0 0h25v25H0z"/>
+	<text y="17" x="6" font-family="arial" fill="#FFF">m</text>
+	<path fill="#FFF" d="M4 1h3v1H5v21h2v1H4zM20 2h-2V1h3v23h-3v-1h2z"/>
+</svg>
