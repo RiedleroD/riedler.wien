@@ -12,7 +12,9 @@
 			<legend><h3>Support me!</h3></legend>
 			<?php
 				genHeBiLink(rwicon("lp"),"Liberapay","https://liberapay.com/Riedler");
-				genHeBiLink(rwicon("kf"),"Ko-fi","https://ko-fi.com/riedler")
+				genHeBiLink(rwicon("kf"),"Ko-fi","https://ko-fi.com/riedler");
+				genHeBiLink(rwicon("gh"),"Github","https://github.com/sponsors/RiedleroD");
+				genHeBiLink(rwicon("pt"),"Patreon","https://www.patreon.com/Riedler");
 			?>
 		</fieldset>
 		<fieldset>
