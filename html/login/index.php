@@ -10,7 +10,18 @@
 	if(	array_key_exists('user',$_POST)
 	&&	array_key_exists('passwd',$_POST) ){
 		$login_result = $db->login($_POST['user'],$_POST['passwd']);
-		if(!$login_result){
+		if($login_result){
+			if(array_key_exists('redirect_to', $_POST)){
+				$url = parse_url($_POST['redirect_to']);
+				if(is_array($url)){
+					$uri = $url['path'] . '?' . $url['query'] . '#' . $url['fragment'];
+					header('Location: ' . $uri, true, 303);
+					die();
+				}
+			}
+			header('Location: /login/');
+			die();
+		}else{
 			$username_cache = $_POST['user'];
 			$passwd_cache = $_POST['passwd'];
 		}
