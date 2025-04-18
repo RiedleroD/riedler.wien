@@ -1,16 +1,3 @@
-@keyframes load-in{
-	0%{
-		transform:skew(0deg);
-		font-size:0vw;
-	}
-	50%{
-		transform:skew(var(--skewr));
-		font-size:0vw;
-	}
-	100%{
-		font-size:var(--content-width);
-	}
-}
 /* body */
 body{
 	/*	color legend:
@@ -350,36 +337,6 @@ a.hebi:hover>div{
 }
 a.hebi:hover>img{
 	filter:brightness(1.2);
-}
-/* overlay */
-#overlay{
-	position:fixed;
-	top:2rem;
-	left:-50vw;
-	display:flex;
-	flex-direction:column;
-	transform:skew(var(--skewr));
-	height:calc(100% - 2rem);
-	width:200vw;
-	pointer-events:none;
-	font-size:var(--content-width);
-	--lleft:calc(50vw - 0.5em);
-	--left:calc(100vw - 0.5em);
-	--right:calc(100vw + 0.5em);
-	--rright:calc(150vw + 0.5em);
-	background:linear-gradient(to right,
-		var(--acc_dd) 0vw,
-		var(--acc_d) var(--lleft),
-		var(--acc) calc(var(--left) - 0.3rem),
-		var(--acc_d) var(--left),
-		#0000 var(--left),
-		#0000 var(--right),
-		var(--gry_d) var(--right),
-		var(--gry) calc(var(--right) + 0.3rem),
-		var(--gry_d) var(--rright),
-		var(--gry_dd) 200vw);
-	animation:load-in 0.5s normal both cubic-bezier(.76,.07,0,1);
-	animation-iteration-count:1;
 }
 /*audioplayer*/
 #masterplayer{

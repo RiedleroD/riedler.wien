@@ -63,7 +63,6 @@
 		echo '</div></nav>';
 	}
 	function genFooter(){
-		echo '<div id="overlay"></div>';
 		echo '<footer>©2025 | Riedler &lt;<a href="mailto:admin@riedler.wien">admin@riedler.wien</a>&gt; | <a href="https://github.com/RiedleroD/riedler.wien">Contribute</a></footer>';
 	}
 	function sessionSetup(){
