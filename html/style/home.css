@@ -4,6 +4,9 @@
 body {
 	height: 100vh;
 	box-sizing: border-box;
+	background-image: url(/resource/misc/Riedler_tileable.svg);
+	background-size: 10em;
+	background-repeat: repeat;
 }
 main {
 	display: flex;
@@ -18,5 +21,5 @@ main > a {
 	padding: 1cap 0;
 	margin: 1em;
 	width: 15ch;
-	background: var(--acc);
+	background: #000;
 }
