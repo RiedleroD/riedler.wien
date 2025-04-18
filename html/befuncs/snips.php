@@ -98,12 +98,7 @@
 		}
 		echo "<a href='$href'><img src='$img'$tmp/></a>";
 	}
-	#no idea what sfto means, but it's been the folder with all my images for
-	#quite some time, so it's staying that way.
-	#TODO: replace with databse function
-	function sfto($name){
-		return "https://riedler.wien/sfto/$name";
-	}
+	#resource helper functions
 	function rwicon($name){
 		if(strlen($name)>5){
 			throw new Exception("rwicon name length can't be longer than 5 characters. Instead, $name is ".strlen($name));
