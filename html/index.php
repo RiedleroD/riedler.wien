@@ -24,8 +24,8 @@
 		<fieldset>
 			<legend><h3>Social</h3></legend>
 			<?php
-				genHeBiLink(rwicon("akko"),"Akkoma","https://donotsta.re/Riedler");
-				genHeBiLink(rwicon("mtrx"),"Matrix","https://matrix.to/#/@riedler:evilcyberhacker.net");
+				genHeBiLink(rwicon("akko"),"Akkoma","https://donotsta.re/_r");
+				genHeBiLink(rwicon("mtrx"),"Matrix","https://matrix.to/#/@riedler:masfloss.net");
 			?>
 		</fieldset>
 		<fieldset>
