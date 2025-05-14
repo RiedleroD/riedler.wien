@@ -1,11 +1,9 @@
-:root {
-	min-height: 100%;
-}
 body {
 	height: 100vh;
 	box-sizing: border-box;
+	margin: 0;
 	background-image: url(/resource/misc/Riedler_tileable.svg);
-	background-size: 10em;
+	background-size: 20em;
 	background-repeat: repeat;
 }
 main {
@@ -22,4 +20,8 @@ main > a {
 	margin: 1em;
 	width: 15ch;
 	background: #000;
+	color: #FFF;
+	border: solid 2px #111;
+	font-variant: small-caps;
+	text-decoration: none;
 }
